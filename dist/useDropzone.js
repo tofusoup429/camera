@@ -20,6 +20,17 @@ var useDropzone = function (_componentId) {
     }, []);
     react_1.useEffect(function () {
         var dropzone = document.getElementById(_componentId);
+        var dblclick = function (e) {
+            handleDndStatus('dbclick');
+            e.stopPropagation();
+            e.preventDefault();
+            console.log('dbclicked');
+        };
+        dropzone === null || dropzone === void 0 ? void 0 : dropzone.addEventListener('dblclick', dblclick);
+        return function () { return removeEventListener('dblclick', dblclick); };
+    }, []);
+    react_1.useEffect(function () {
+        var dropzone = document.getElementById(_componentId);
         var dragleave = function (e) {
             handleDndStatus('none');
             e.stopPropagation();

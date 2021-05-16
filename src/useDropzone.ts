@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 
-type DragAndDropStatus = "none"|"dragover"|"drop"
+type DragAndDropStatus = "none"|"dragover"|"drop"|'dbclick'
 
 export const useDropzone = (_componentId:string='dropzone') => {
     const [dndStatus, handleDndStatus] = useState<DragAndDropStatus>('none');
@@ -16,6 +16,18 @@ export const useDropzone = (_componentId:string='dropzone') => {
         }
         dropzone?.addEventListener('dragover',dragover);
         return ()=>removeEventListener('dragover', dragover )
+    },[]);
+
+    useEffect(()=>{
+        const dropzone = document.getElementById(_componentId);
+        const dblclick = (e:DragEvent)=>{
+            handleDndStatus('dbclick');
+            e.stopPropagation();
+            e.preventDefault();
+            console.log('dbclicked');
+        }
+        dropzone?.addEventListener('dblclick',dblclick);
+        return ()=>removeEventListener('dblclick', dblclick )
     },[]);
 
     useEffect(()=>{
