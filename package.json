@@ -1,8 +1,8 @@
 {
-  "name": "@tofusoup429/react-component-module-frame",
-  "version": "0.0.10",
-  "description": "React module frame",
-  "homepage": "https://github.com/tofusoup429/react-component-module-frame",
+  "name": "@tofusoup429/dropzone",
+  "version": "0.0.2",
+  "description": "dropzone",
+  "homepage": "https://github.com/tofusoup429/dropzone",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
