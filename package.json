@@ -1,6 +1,6 @@
 {
   "name": "@tofusoup429/dropzone",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "dropzone",
   "homepage": "https://github.com/tofusoup429/dropzone",
   "main": "dist/index.js",
