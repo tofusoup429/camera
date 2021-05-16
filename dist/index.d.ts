@@ -1,2 +1,2 @@
+export * from './dropzone';
 export * from './useDropzone';
-export from './assets'; 
