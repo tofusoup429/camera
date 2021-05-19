@@ -1,12 +1,21 @@
 import {useState, useEffect} from 'react';
 
-type DragAndDropStatus = "none"|"dragover"|"drop"|'dbclick'
+type DragAndDropStatus = "none"|"dragover"|"drop"|'dbclick';
+interface Returns {
+    fileName:string, 
+    dndStatus:DragAndDropStatus, 
+    fileContent:string|ArrayBuffer|null, 
+    fileSize:number, 
+    dropzoneId:string
+}
 
-export const useDropzone = (_componentId:string='dropzone') => {
+export const useDropzone = (_componentId:string='dropzone'):Returns => {
     const [dndStatus, handleDndStatus] = useState<DragAndDropStatus>('none');
     const [fileContent, handleFileContent] = useState<ArrayBuffer|string|null>(null);
     const [fileSize, handleFileSize] = useState<number>(0)
     const [dropzoneId, ] = useState<string>(_componentId);
+    const [fileName, handleFileName] = useState<string>('')
+    //const [fileName, handleFileName] = useState<string>('');
     useEffect(()=>{
         const dropzone = document.getElementById(_componentId);
         const dragover = (e:DragEvent)=>{
@@ -20,18 +29,6 @@ export const useDropzone = (_componentId:string='dropzone') => {
 
     useEffect(()=>{
         const dropzone = document.getElementById(_componentId);
-        const dblclick = (e:DragEvent)=>{
-            handleDndStatus('dbclick');
-            e.stopPropagation();
-            e.preventDefault();
-            console.log('dbclicked');
-        }
-        dropzone?.addEventListener('dblclick',dblclick);
-        return ()=>removeEventListener('dblclick', dblclick )
-    },[]);
-
-    useEffect(()=>{
-        const dropzone = document.getElementById(_componentId);
         const dragleave = (e:DragEvent)=>{
             handleDndStatus('none');
             e.stopPropagation();
@@ -41,9 +38,13 @@ export const useDropzone = (_componentId:string='dropzone') => {
         return ()=>removeEventListener('dragleave', dragleave )
     },[]);
 
+    
+
     useEffect(()=>{
         const dropzone = document.getElementById(_componentId);
         const drop = (e:DragEvent)=>{
+            let fileName = e!.dataTransfer!.files[0].name||"noName";
+            handleFileName(fileName)
             handleDndStatus('drop');
             e.stopPropagation();
             e.preventDefault();
@@ -63,5 +64,5 @@ export const useDropzone = (_componentId:string='dropzone') => {
         return ()=>removeEventListener('drop', drop)
     },[])
 
-    return {dndStatus, fileContent, fileSize, dropzoneId}
+    return {fileName, dndStatus, fileContent, fileSize, dropzoneId}
 }
