@@ -53,6 +53,12 @@ var useDropzone = function (_componentId) {
         dropzone === null || dropzone === void 0 ? void 0 : dropzone.addEventListener('drop', drop);
         return function () { return removeEventListener('drop', drop); };
     }, []);
-    return { fileName: fileName, dndStatus: dndStatus, fileContent: fileContent, fileSize: fileSize, dropzoneId: dropzoneId };
+    var initializeStates = function () {
+        handleDndStatus('none');
+        handleFileContent(null);
+        handleFileName('');
+        handleFileSize(0);
+    };
+    return { fileName: fileName, dndStatus: dndStatus, fileContent: fileContent, fileSize: fileSize, dropzoneId: dropzoneId, initializeStates: initializeStates };
 };
 exports.useDropzone = useDropzone;

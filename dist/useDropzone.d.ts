@@ -5,6 +5,7 @@ interface Returns {
     fileContent: string | ArrayBuffer | null;
     fileSize: number;
     dropzoneId: string;
+    initializeStates: () => void;
 }
 export declare const useDropzone: (_componentId?: string) => Returns;
 export {};

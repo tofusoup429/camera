@@ -6,7 +6,8 @@ interface Returns {
     dndStatus:DragAndDropStatus, 
     fileContent:string|ArrayBuffer|null, 
     fileSize:number, 
-    dropzoneId:string
+    dropzoneId:string,
+    initializeStates:()=>void;
 }
 
 export const useDropzone = (_componentId:string='dropzone'):Returns => {
@@ -38,8 +39,6 @@ export const useDropzone = (_componentId:string='dropzone'):Returns => {
         return ()=>removeEventListener('dragleave', dragleave )
     },[]);
 
-    
-
     useEffect(()=>{
         const dropzone = document.getElementById(_componentId);
         const drop = (e:DragEvent)=>{
@@ -64,5 +63,13 @@ export const useDropzone = (_componentId:string='dropzone'):Returns => {
         return ()=>removeEventListener('drop', drop)
     },[])
 
-    return {fileName, dndStatus, fileContent, fileSize, dropzoneId}
+    const initializeStates = () => {
+        handleDndStatus('none');
+        handleFileContent(null);
+        handleFileName('');
+        handleFileSize(0);
+
+    }
+
+    return {fileName, dndStatus, fileContent, fileSize, dropzoneId, initializeStates}
 }
