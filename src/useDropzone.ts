@@ -16,7 +16,7 @@ export const useDropzone = (_componentId:string='dropzone'):Returns => {
     const [fileSize, handleFileSize] = useState<number>(0)
     const [dropzoneId, ] = useState<string>(_componentId);
     const [fileName, handleFileName] = useState<string>('')
-    //const [fileName, handleFileName] = useState<string>('');
+
     useEffect(()=>{
         const dropzone = document.getElementById(_componentId);
         const dragover = (e:DragEvent)=>{
