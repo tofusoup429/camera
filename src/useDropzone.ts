@@ -4,7 +4,7 @@ type DragAndDropStatus = "none"|"dragover"|"drop"|'dbclick';
 interface Returns {
     fileName:string, 
     dndStatus:DragAndDropStatus, 
-    fileContent:string|null, 
+    fileContent:ArrayBuffer|string|null, 
     fileSize:number, 
     dropzoneId:string,
     initializeStates:()=>void;
