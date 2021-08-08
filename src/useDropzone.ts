@@ -1,12 +1,12 @@
 import {useState, useEffect} from 'react';
 
 type DragAndDropStatus = "none"|"dragover"|"drop"|'dbclick';
+
 interface Returns {
     fileName:string, 
     dndStatus:DragAndDropStatus, 
     fileContent:ArrayBuffer|string|null, 
     fileSize:number, 
-    dropzoneId:string,
     initializeStates:()=>void;
 }
 
@@ -14,10 +14,11 @@ export const useDropzone = (_componentId:string='dropzone'):Returns => {
     const [dndStatus, handleDndStatus] = useState<DragAndDropStatus>('none');
     const [fileContent, handleFileContent] = useState<ArrayBuffer|string|null>(null);
     const [fileSize, handleFileSize] = useState<number>(0)
-    const [dropzoneId, ] = useState<string>(_componentId);
     const [fileName, handleFileName] = useState<string>('')
 
     useEffect(()=>{
+        //#1 add event-listener "dragover" to DOM that has id "_componetId";
+        //When a file is dragged over to the DOM, the dndStatus becomes 'dragover'
         const dropzone = document.getElementById(_componentId);
         const dragover = (e:DragEvent)=>{
             handleDndStatus('dragover');
@@ -29,6 +30,8 @@ export const useDropzone = (_componentId:string='dropzone'):Returns => {
     },[]);
 
     useEffect(()=>{
+        //#2 add event-listener "dragleave" to DOM that has id "_componetId";
+        //When a file is dragged out of the DOM, the dndStatus becomes "dragleave"
         const dropzone = document.getElementById(_componentId);
         const dragleave = (e:DragEvent)=>{
             handleDndStatus('none');
@@ -40,6 +43,9 @@ export const useDropzone = (_componentId:string='dropzone'):Returns => {
     },[]);
 
     useEffect(()=>{
+        //#3 add event-listener "drop" to DOM that has id "_componetId";
+        //When a file is dropped on the DOM, the dndStatus becomes "drop";
+        //As soon as the file is droped, it reads files and store the file information in the state "fileContents"
         const dropzone = document.getElementById(_componentId);
         const drop = (e:DragEvent)=>{
             let fileName = e!.dataTransfer!.files[0].name||"noName";
@@ -64,12 +70,12 @@ export const useDropzone = (_componentId:string='dropzone'):Returns => {
     },[])
 
     const initializeStates = () => {
+        //This function initializes all the states
         handleDndStatus('none');
         handleFileContent(null);
         handleFileName('');
         handleFileSize(0);
-
     }
 
-    return {fileName, dndStatus, fileContent, fileSize, dropzoneId, initializeStates}
+    return {fileName, dndStatus, fileContent, fileSize, initializeStates}
 }

@@ -7,10 +7,10 @@ var useDropzone = function (_componentId) {
     var _a = react_1.useState('none'), dndStatus = _a[0], handleDndStatus = _a[1];
     var _b = react_1.useState(null), fileContent = _b[0], handleFileContent = _b[1];
     var _c = react_1.useState(0), fileSize = _c[0], handleFileSize = _c[1];
-    var dropzoneId = react_1.useState(_componentId)[0];
     var _d = react_1.useState(''), fileName = _d[0], handleFileName = _d[1];
-    //const [fileName, handleFileName] = useState<string>('');
     react_1.useEffect(function () {
+        //#1 add event-listener "dragover" to DOM that has id "_componetId";
+        //When a file is dragged over to the DOM, the dndStatus becomes 'dragover'
         var dropzone = document.getElementById(_componentId);
         var dragover = function (e) {
             handleDndStatus('dragover');
@@ -21,6 +21,8 @@ var useDropzone = function (_componentId) {
         return function () { return removeEventListener('dragover', dragover); };
     }, []);
     react_1.useEffect(function () {
+        //#2 add event-listener "dragleave" to DOM that has id "_componetId";
+        //When a file is dragged out of the DOM, the dndStatus becomes "dragleave"
         var dropzone = document.getElementById(_componentId);
         var dragleave = function (e) {
             handleDndStatus('none');
@@ -31,6 +33,9 @@ var useDropzone = function (_componentId) {
         return function () { return removeEventListener('dragleave', dragleave); };
     }, []);
     react_1.useEffect(function () {
+        //#3 add event-listener "drop" to DOM that has id "_componetId";
+        //When a file is dropped on the DOM, the dndStatus becomes "drop";
+        //As soon as the file is droped, it reads files and store the file information in the state "fileContents"
         var dropzone = document.getElementById(_componentId);
         var drop = function (e) {
             var fileName = e.dataTransfer.files[0].name || "noName";
@@ -54,11 +59,12 @@ var useDropzone = function (_componentId) {
         return function () { return removeEventListener('drop', drop); };
     }, []);
     var initializeStates = function () {
+        //This function initializes all the states
         handleDndStatus('none');
         handleFileContent(null);
         handleFileName('');
         handleFileSize(0);
     };
-    return { fileName: fileName, dndStatus: dndStatus, fileContent: fileContent, fileSize: fileSize, dropzoneId: dropzoneId, initializeStates: initializeStates };
+    return { fileName: fileName, dndStatus: dndStatus, fileContent: fileContent, fileSize: fileSize, initializeStates: initializeStates };
 };
 exports.useDropzone = useDropzone;
