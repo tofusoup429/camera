@@ -1,1 +1,1 @@
-export * from './useDropzone';
+export * from './useCamera';
