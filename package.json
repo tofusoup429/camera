@@ -1,8 +1,8 @@
 {
-  "name": "@tofusoup429/dropzone",
-  "version": "1.1.1",
-  "description": "dropzone",
-  "homepage": "https://github.com/tofusoup429/dropzone",
+  "name": "@tofusoup429/camera",
+  "version": "0.0.1",
+  "description": "camera",
+  "homepage": "https://github.com/tofusoup429/camera",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
