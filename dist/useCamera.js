@@ -6,23 +6,33 @@ var useCamera = function (width) {
     var _a = react_1.useState(false), isStreaming = _a[0], handleIsStreaming = _a[1];
     var _b = react_1.useState({ xCoord: 0, yCoord: 0, width: 0, height: 0 }), videoCoordination = _b[0], handleVideoCoordination = _b[1];
     var _c = react_1.useState(''), imageData = _c[0], handleImageData = _c[1];
+    var video;
+    var canvas;
     react_1.useEffect(function () {
         try {
             //#1 get permission to use video
-            var video_1 = document.getElementsByTagName('video')[0];
-            var clientLeft = video_1.clientLeft, clientTop = video_1.clientTop, videoWidth = video_1.videoWidth, videoHeight = video_1.videoHeight;
+            video = document.getElementsByTagName('video')[0];
+            canvas = document.getElementsByTagName('canvas')[0];
+            canvas.style.position = "absolute";
+            canvas.style.left = videoCoordination.xCoord.toString() + 'px';
+            canvas.style.top = videoCoordination.yCoord.toString() + 'px';
+            canvas.setAttribute('width', videoCoordination.width.toString());
+            canvas.setAttribute('height', videoCoordination.height.toString());
+            console.log('canvas positioned!');
+            console.log('canvas', canvas);
+            var clientLeft = video.clientLeft, clientTop = video.clientTop, videoWidth = video.videoWidth, videoHeight = video.videoHeight;
             handleVideoCoordination({ xCoord: clientLeft, yCoord: clientTop, width: videoWidth, height: videoHeight });
             var constraint = {
                 video: {
                     width: width,
                     height: 0,
-                    facingMode: 'user'
+                    facingMode: width < 1000 ? 'environment' : 'user'
                 },
                 audio: false
             };
             navigator.mediaDevices.getUserMedia(constraint).then(function (stream) {
-                video_1.srcObject = stream;
-                isStreaming ? video_1.play() : video_1.pause();
+                video.srcObject = stream;
+                isStreaming ? video.play() : video.pause();
             }).catch(function (e) {
                 console.log('An Error occured', e);
             });
@@ -34,15 +44,7 @@ var useCamera = function (width) {
     react_1.useEffect(function () {
         try {
             if (!isStreaming) {
-                var canvas = document.getElementsByTagName('canvas')[0];
-                canvas.style.position = "absolute";
-                canvas.style.left = videoCoordination.xCoord.toString() + 'px';
-                canvas.style.top = videoCoordination.yCoord.toString() + 'px';
-                canvas.setAttribute('width', videoCoordination.width.toString());
-                canvas.setAttribute('height', videoCoordination.height.toString());
-                console.log('canvas positioned!');
                 var context = canvas.getContext('2d');
-                var video = document.getElementsByTagName('video')[0];
                 context === null || context === void 0 ? void 0 : context.drawImage(video, videoCoordination.xCoord, videoCoordination.yCoord, videoCoordination.width, videoCoordination.height);
                 var imageData_1 = canvas.toDataURL('image/png');
                 console.log('imageData', imageData_1);
@@ -52,7 +54,7 @@ var useCamera = function (width) {
         catch (e) {
             console.log(e);
         }
-    }, [isStreaming, width]);
+    }, [isStreaming]);
     return { isStreaming: isStreaming, handleIsStreaming: handleIsStreaming, videoCoordination: videoCoordination, imageData: imageData };
 };
 exports.useCamera = useCamera;
