@@ -1,65 +1,76 @@
 import {useEffect, useState} from 'react';
-
-type VideoCoordination={xCoord:number, yCoord:number, width:number, height:number, }
-
+const A4_RATIO = 297/210
 export const useCamera = (
-    width:number
+    width:number=210
 )=> {
     const [isStreaming, handleIsStreaming] = useState<boolean>(false);
-    const [videoCoordination, handleVideoCoordination] = useState<VideoCoordination>({xCoord:0, yCoord:0, width:0, height:0})
+
     const [imageData, handleImageData] = useState('');
     let video:HTMLVideoElement;
     let canvas:HTMLCanvasElement;
-    
+
     useEffect(()=>{
         try{
             //#1 get permission to use video
             video = document.getElementsByTagName('video')[0];
             canvas = document.getElementsByTagName('canvas')[0];
-            canvas.style.position="absolute";
-            canvas.style.left=videoCoordination.xCoord.toString()+'px';
-            canvas.style.top=videoCoordination.yCoord.toString()+'px';
-            canvas.setAttribute('width', videoCoordination.width.toString());
-            canvas.setAttribute('height', videoCoordination.height.toString());
-            console.log('canvas positioned!');
-            console.log('canvas', canvas)
-            let {clientLeft, clientTop, videoWidth, videoHeight} = video
-            handleVideoCoordination({xCoord:clientLeft, yCoord:clientTop, width:videoWidth, height:videoHeight})
             let constraint = {
                 video:{
                     width:width,
-                    height:0,
-                    facingMode:width<1000?'environment':'user'
+                    facingMode:"environment"
                 },
                 audio:false
             }
             navigator.mediaDevices.getUserMedia(constraint).then((stream)=>{
+                video.setAttribute("playsinline", "true");
                 video.srcObject = stream;
-                isStreaming?video.play():video.pause()
+                video.onloadedmetadata = ()=>{
+                    let {clientLeft, clientTop} = video
+                    //match canvas position with video
+                    canvas.style.position="absolute";
+                    canvas.style.left=clientLeft.toString();
+                    canvas.style.top=clientTop.toString();
+                    canvas.setAttribute('width', width.toString());
+                    canvas.setAttribute('height', (width*A4_RATIO).toString());
+                    video.play();
+                    handleIsStreaming(true);
+                }
             }).catch((e)=>{
-                console.log('An Error occured', e)
+                console.log(e);
+                alert(e)
             })
         }catch(e){
-            console.log(e)
-        }
-    },[isStreaming, width]);
-
-    useEffect(()=>{
-        try{
-            if(!isStreaming){
-                let context = canvas.getContext('2d');
-                context?.drawImage(video,videoCoordination.xCoord,videoCoordination.yCoord,videoCoordination.width, videoCoordination.height )
-                let imageData = canvas.toDataURL('image/png');
-                console.log('imageData', imageData);
-                handleImageData(imageData);
-            }
-        }catch(e){
+            alert('error1: '+ e);
             console.log(e);
         }
-    }, [isStreaming]);
-
-    
-    
-
-    return {isStreaming, handleIsStreaming, videoCoordination, imageData}
+    },[]);
+    const drawImageOnCanvas = async () => {
+        try{
+            let video:HTMLVideoElement = document.getElementsByTagName('video')[0]
+            let canvas:HTMLCanvasElement = document.getElementsByTagName('canvas')[0];
+            let context = canvas.getContext('2d');
+            context?.drawImage(video,0,0,width,width*A4_RATIO);
+            let imageData = canvas.toDataURL('image/png');
+            console.log('imageData', imageData);
+            return imageData;
+        }catch(e){
+            console.log(e);
+            alert('Error in drawing image: '+ e)
+            return ''
+        }
+        
+    }
+    const takePhoto = async () => {
+        try{
+            let video:HTMLVideoElement = document.getElementsByTagName('video')[0]
+            video.pause();
+            let imageData = await drawImageOnCanvas();
+            handleImageData(imageData)
+            video.play()
+        }catch(e){
+            console.log(e);
+            alert('Error in taking photo: '+ e);
+        }
+    }
+    return {isStreaming, handleIsStreaming, imageData, takePhoto}
 }

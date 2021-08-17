@@ -1,11 +1,48 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useCamera = void 0;
 var react_1 = require("react");
+var A4_RATIO = 297 / 210;
 var useCamera = function (width) {
+    if (width === void 0) { width = 210; }
     var _a = react_1.useState(false), isStreaming = _a[0], handleIsStreaming = _a[1];
-    var _b = react_1.useState({ xCoord: 0, yCoord: 0, width: 0, height: 0 }), videoCoordination = _b[0], handleVideoCoordination = _b[1];
-    var _c = react_1.useState(''), imageData = _c[0], handleImageData = _c[1];
+    var _b = react_1.useState(''), imageData = _b[0], handleImageData = _b[1];
     var video;
     var canvas;
     react_1.useEffect(function () {
@@ -13,48 +50,80 @@ var useCamera = function (width) {
             //#1 get permission to use video
             video = document.getElementsByTagName('video')[0];
             canvas = document.getElementsByTagName('canvas')[0];
-            canvas.style.position = "absolute";
-            canvas.style.left = videoCoordination.xCoord.toString() + 'px';
-            canvas.style.top = videoCoordination.yCoord.toString() + 'px';
-            canvas.setAttribute('width', videoCoordination.width.toString());
-            canvas.setAttribute('height', videoCoordination.height.toString());
-            console.log('canvas positioned!');
-            console.log('canvas', canvas);
-            var clientLeft = video.clientLeft, clientTop = video.clientTop, videoWidth = video.videoWidth, videoHeight = video.videoHeight;
-            handleVideoCoordination({ xCoord: clientLeft, yCoord: clientTop, width: videoWidth, height: videoHeight });
             var constraint = {
                 video: {
                     width: width,
-                    height: 0,
-                    facingMode: width < 1000 ? 'environment' : 'user'
+                    facingMode: "environment"
                 },
                 audio: false
             };
             navigator.mediaDevices.getUserMedia(constraint).then(function (stream) {
+                video.setAttribute("playsinline", "true");
                 video.srcObject = stream;
-                isStreaming ? video.play() : video.pause();
+                video.onloadedmetadata = function () {
+                    var clientLeft = video.clientLeft, clientTop = video.clientTop;
+                    //match canvas position with video
+                    canvas.style.position = "absolute";
+                    canvas.style.left = clientLeft.toString();
+                    canvas.style.top = clientTop.toString();
+                    canvas.setAttribute('width', width.toString());
+                    canvas.setAttribute('height', (width * A4_RATIO).toString());
+                    video.play();
+                    handleIsStreaming(true);
+                };
             }).catch(function (e) {
-                console.log('An Error occured', e);
+                console.log(e);
+                alert(e);
             });
         }
         catch (e) {
+            alert('error1: ' + e);
             console.log(e);
         }
-    }, [isStreaming, width]);
-    react_1.useEffect(function () {
-        try {
-            if (!isStreaming) {
-                var context = canvas.getContext('2d');
-                context === null || context === void 0 ? void 0 : context.drawImage(video, videoCoordination.xCoord, videoCoordination.yCoord, videoCoordination.width, videoCoordination.height);
-                var imageData_1 = canvas.toDataURL('image/png');
+    }, []);
+    var drawImageOnCanvas = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var video_1, canvas_1, context, imageData_1;
+        return __generator(this, function (_a) {
+            try {
+                video_1 = document.getElementsByTagName('video')[0];
+                canvas_1 = document.getElementsByTagName('canvas')[0];
+                context = canvas_1.getContext('2d');
+                context === null || context === void 0 ? void 0 : context.drawImage(video_1, 0, 0, width, width * A4_RATIO);
+                imageData_1 = canvas_1.toDataURL('image/png');
                 console.log('imageData', imageData_1);
-                handleImageData(imageData_1);
+                return [2 /*return*/, imageData_1];
             }
-        }
-        catch (e) {
-            console.log(e);
-        }
-    }, [isStreaming]);
-    return { isStreaming: isStreaming, handleIsStreaming: handleIsStreaming, videoCoordination: videoCoordination, imageData: imageData };
+            catch (e) {
+                console.log(e);
+                alert('Error in drawing image: ' + e);
+                return [2 /*return*/, ''];
+            }
+            return [2 /*return*/];
+        });
+    }); };
+    var takePhoto = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var video_2, imageData_2, e_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    video_2 = document.getElementsByTagName('video')[0];
+                    video_2.pause();
+                    return [4 /*yield*/, drawImageOnCanvas()];
+                case 1:
+                    imageData_2 = _a.sent();
+                    handleImageData(imageData_2);
+                    video_2.play();
+                    return [3 /*break*/, 3];
+                case 2:
+                    e_1 = _a.sent();
+                    console.log(e_1);
+                    alert('Error in taking photo: ' + e_1);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    }); };
+    return { isStreaming: isStreaming, handleIsStreaming: handleIsStreaming, imageData: imageData, takePhoto: takePhoto };
 };
 exports.useCamera = useCamera;
