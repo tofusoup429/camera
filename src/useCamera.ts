@@ -16,7 +16,8 @@ export const useCamera = (
             canvas = document.getElementsByTagName('canvas')[0];
             let constraint = {
                 video:{
-                    width:width,
+                    width:{ideal:4096},
+                    height:{ideal:2160},
                     facingMode:"environment"
                 },
                 audio:false
@@ -50,7 +51,7 @@ export const useCamera = (
             let canvas:HTMLCanvasElement = document.getElementsByTagName('canvas')[0];
             let context = canvas.getContext('2d');
             context?.drawImage(video,0,0,width,width*A4_RATIO);
-            let imageData = canvas.toDataURL('image/png');
+            let imageData = canvas.toDataURL('image/png', 1.0);
             console.log('imageData', imageData);
             return imageData;
         }catch(e){

@@ -22,5 +22,6 @@
   "files": [
     "/dist",
     "package.json"
-  ]
+  ],
+  "dependencies": {}
 }

@@ -52,7 +52,8 @@ var useCamera = function (width) {
             canvas = document.getElementsByTagName('canvas')[0];
             var constraint = {
                 video: {
-                    width: width,
+                    width: { ideal: 4096 },
+                    height: { ideal: 2160 },
                     facingMode: "environment"
                 },
                 audio: false
@@ -89,7 +90,7 @@ var useCamera = function (width) {
                 canvas_1 = document.getElementsByTagName('canvas')[0];
                 context = canvas_1.getContext('2d');
                 context === null || context === void 0 ? void 0 : context.drawImage(video_1, 0, 0, width, width * A4_RATIO);
-                imageData_1 = canvas_1.toDataURL('image/png');
+                imageData_1 = canvas_1.toDataURL('image/png', 1.0);
                 console.log('imageData', imageData_1);
                 return [2 /*return*/, imageData_1];
             }
