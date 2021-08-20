@@ -1,6 +1,6 @@
 {
   "name": "@tofusoup429/camera",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "camera",
   "homepage": "https://github.com/tofusoup429/camera",
   "main": "dist/index.js",
