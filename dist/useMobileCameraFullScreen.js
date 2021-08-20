@@ -36,10 +36,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useCamera = void 0;
+exports.useMobileCameraFullScreen = void 0;
 var react_1 = require("react");
 var A4_RATIO = 297 / 210;
-var useCamera = function (width) {
+var useMobileCameraFullScreen = function (width) {
     if (width === void 0) { width = 210; }
     var _a = react_1.useState(false), isStreaming = _a[0], handleIsStreaming = _a[1];
     var _b = react_1.useState(''), imageData = _b[0], handleImageData = _b[1];
@@ -103,28 +103,22 @@ var useCamera = function (width) {
         });
     }); };
     var takePhoto = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var video_2, imageData_2, e_1;
+        var video_2;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    video_2 = document.getElementsByTagName('video')[0];
-                    video_2.pause();
-                    return [4 /*yield*/, drawImageOnCanvas()];
-                case 1:
-                    imageData_2 = _a.sent();
-                    handleImageData(imageData_2);
-                    video_2.play();
-                    return [3 /*break*/, 3];
-                case 2:
-                    e_1 = _a.sent();
-                    console.log(e_1);
-                    alert('Error in taking photo: ' + e_1);
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+            try {
+                handleImageData('');
+                video_2 = document.getElementsByTagName('video')[0];
+                //video.pause();
+                drawImageOnCanvas().then(function (imageData) { return handleImageData(imageData); }).then(function () { return video_2.play(); });
+                //video.play()
             }
+            catch (e) {
+                console.log(e);
+                alert('Error in taking photo: ' + e);
+            }
+            return [2 /*return*/];
         });
     }); };
     return { isStreaming: isStreaming, handleIsStreaming: handleIsStreaming, imageData: imageData, takePhoto: takePhoto };
 };
-exports.useCamera = useCamera;
+exports.useMobileCameraFullScreen = useMobileCameraFullScreen;

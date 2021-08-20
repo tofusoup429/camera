@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
+
 const A4_RATIO = 297/210
-export const useCamera = (
+export const useMobileCameraFullScreen = (
     width:number=210
 )=> {
     const [isStreaming, handleIsStreaming] = useState<boolean>(false);
@@ -63,11 +64,11 @@ export const useCamera = (
     }
     const takePhoto = async () => {
         try{
+            handleImageData('')
             let video:HTMLVideoElement = document.getElementsByTagName('video')[0]
-            video.pause();
-            let imageData = await drawImageOnCanvas();
-            handleImageData(imageData)
-            video.play()
+            //video.pause();
+            drawImageOnCanvas().then((imageData)=>handleImageData(imageData)).then(()=>video.play());
+            //video.play()
         }catch(e){
             console.log(e);
             alert('Error in taking photo: '+ e);
