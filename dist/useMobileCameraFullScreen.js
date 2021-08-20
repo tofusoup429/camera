@@ -38,11 +38,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useMobileCameraFullScreen = void 0;
 var react_1 = require("react");
-var A4_RATIO = 297 / 210;
-var useMobileCameraFullScreen = function (width) {
-    if (width === void 0) { width = 210; }
+var useMobileCameraFullScreen = function () {
     var _a = react_1.useState(false), isStreaming = _a[0], handleIsStreaming = _a[1];
-    var _b = react_1.useState(''), imageData = _b[0], handleImageData = _b[1];
+    var _b = react_1.useState({ w: 0, h: 0 }), videoDem = _b[0], handleVideoDem = _b[1];
+    var _c = react_1.useState(''), imageData = _c[0], handleImageData = _c[1];
     var video;
     var canvas;
     react_1.useEffect(function () {
@@ -62,13 +61,15 @@ var useMobileCameraFullScreen = function (width) {
                 video.setAttribute("playsinline", "true");
                 video.srcObject = stream;
                 video.onloadedmetadata = function () {
-                    var clientLeft = video.clientLeft, clientTop = video.clientTop;
+                    console.log('video', video);
+                    var clientLeft = video.clientLeft, clientTop = video.clientTop, videoWidth = video.videoWidth, videoHeight = video.videoHeight;
+                    handleVideoDem({ w: videoWidth, h: videoHeight });
                     //match canvas position with video
                     canvas.style.position = "absolute";
                     canvas.style.left = clientLeft.toString();
                     canvas.style.top = clientTop.toString();
-                    canvas.setAttribute('width', width.toString());
-                    canvas.setAttribute('height', (width * A4_RATIO).toString());
+                    canvas.setAttribute('width', videoWidth.toString());
+                    canvas.setAttribute('height', videoHeight.toString());
                     video.play();
                     handleIsStreaming(true);
                 };
@@ -89,7 +90,7 @@ var useMobileCameraFullScreen = function (width) {
                 video_1 = document.getElementsByTagName('video')[0];
                 canvas_1 = document.getElementsByTagName('canvas')[0];
                 context = canvas_1.getContext('2d');
-                context === null || context === void 0 ? void 0 : context.drawImage(video_1, 0, 0, width, width * A4_RATIO);
+                context === null || context === void 0 ? void 0 : context.drawImage(video_1, 0, 0, videoDem.w, videoDem.h);
                 imageData_1 = canvas_1.toDataURL('image/png', 1.0);
                 console.log('imageData', imageData_1);
                 return [2 /*return*/, imageData_1];

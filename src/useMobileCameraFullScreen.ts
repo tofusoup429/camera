@@ -1,11 +1,8 @@
 import {useEffect, useState} from 'react';
 
-const A4_RATIO = 297/210
-export const useMobileCameraFullScreen = (
-    width:number=210
-)=> {
+export const useMobileCameraFullScreen = ()=> {
     const [isStreaming, handleIsStreaming] = useState<boolean>(false);
-
+    const [videoDem, handleVideoDem] = useState<{w:number, h:number}>({w:0, h:0})
     const [imageData, handleImageData] = useState('');
     let video:HTMLVideoElement;
     let canvas:HTMLCanvasElement;
@@ -27,13 +24,15 @@ export const useMobileCameraFullScreen = (
                 video.setAttribute("playsinline", "true");
                 video.srcObject = stream;
                 video.onloadedmetadata = ()=>{
-                    let {clientLeft, clientTop} = video
+                    console.log('video', video);
+                    let {clientLeft, clientTop, videoWidth, videoHeight} = video
+                    handleVideoDem({w:videoWidth, h:videoHeight})
                     //match canvas position with video
                     canvas.style.position="absolute";
                     canvas.style.left=clientLeft.toString();
                     canvas.style.top=clientTop.toString();
-                    canvas.setAttribute('width', width.toString());
-                    canvas.setAttribute('height', (width*A4_RATIO).toString());
+                    canvas.setAttribute('width', videoWidth.toString());
+                    canvas.setAttribute('height', videoHeight.toString());
                     video.play();
                     handleIsStreaming(true);
                 }
@@ -51,7 +50,7 @@ export const useMobileCameraFullScreen = (
             let video:HTMLVideoElement = document.getElementsByTagName('video')[0]
             let canvas:HTMLCanvasElement = document.getElementsByTagName('canvas')[0];
             let context = canvas.getContext('2d');
-            context?.drawImage(video,0,0,width,width*A4_RATIO);
+            context?.drawImage(video,0,0,videoDem.w,videoDem.h);
             let imageData = canvas.toDataURL('image/png', 1.0);
             console.log('imageData', imageData);
             return imageData;
