@@ -1,7 +1,7 @@
 {
   "name": "@tofusoup429/camera",
-  "version": "0.2.21",
-  "description": "This module enables to use camera on web-browsers like mobile-applications",
+  "version": "1.0.0",
+  "description": "This module provides APIs for web camera",
   "homepage": "https://github.com/tofusoup429/camera",
   "main": "dist/index.js",
   "license": "MIT",
