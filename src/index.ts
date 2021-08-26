@@ -1,1 +1,1 @@
-export * from './useMobileCameraFullScreen';
+export * from './useCamera';

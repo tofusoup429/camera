@@ -36,9 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useMobileCameraFullScreen = void 0;
+exports.useCamera = void 0;
 var react_1 = require("react");
-var useMobileCameraFullScreen = function () {
+var useCamera = function () {
     //const [isStreaming, handleIsStreaming] = useState<boolean>(false);
     var _a = react_1.useState({ w: 0, h: 0 }), videoDem = _a[0], handleVideoDem = _a[1];
     var _b = react_1.useState(''), imageData = _b[0], handleImageData = _b[1];
@@ -104,18 +104,6 @@ var useMobileCameraFullScreen = function () {
             return [2 /*return*/];
         });
     }); };
-    // const takePhoto = async () => {
-    //     try{
-    //         handleImageData('')
-    //         let video:HTMLVideoElement = document.getElementsByTagName('video')[0]
-    //         //video.pause();
-    //         drawImageOnCanvas().then((imageData)=>handleImageData(imageData)).then(()=>video.play());
-    //         //video.play()
-    //     }catch(e){
-    //         console.log(e);
-    //         alert('Error in taking photo: '+ e);
-    //     }
-    // }
     return { imageData: imageData, captureImage: captureImage };
 };
-exports.useMobileCameraFullScreen = useMobileCameraFullScreen;
+exports.useCamera = useCamera;

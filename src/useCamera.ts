@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 
-export const useMobileCameraFullScreen = ()=> {
+export const useCamera = ()=> {
     //const [isStreaming, handleIsStreaming] = useState<boolean>(false);
     const [videoDem, handleVideoDem] = useState<{w:number, h:number}>({w:0, h:0})
     const [imageData, handleImageData] = useState('');
@@ -45,33 +45,23 @@ export const useMobileCameraFullScreen = ()=> {
             console.log(e);
         }
     },[]);
-    const drawImageOnCanvas = async () => {
+
+    const captureImage = async ():Promise<string> => {
         try{
             let video:HTMLVideoElement = document.getElementsByTagName('video')[0]
             let canvas:HTMLCanvasElement = document.getElementsByTagName('canvas')[0];
             let context = canvas.getContext('2d');
             context?.drawImage(video,0,0,videoDem.w,videoDem.h);
-            let imageData = canvas.toDataURL('image/png', 1.0);
-            console.log('imageData', imageData);
-            return imageData;
+            let imageData1 = canvas.toDataURL('image/png', 1.0);
+            //console.log('imageData', imageData);
+            handleImageData(imageData1)
+            return imageData1
         }catch(e){
             console.log(e);
-            alert('Error in drawing image: '+ e)
+            alert('Error in Capturing Image: '+ e)
             return ''
         }
-        
     }
-    const takePhoto = async () => {
-        try{
-            handleImageData('')
-            let video:HTMLVideoElement = document.getElementsByTagName('video')[0]
-            //video.pause();
-            drawImageOnCanvas().then((imageData)=>handleImageData(imageData)).then(()=>video.play());
-            //video.play()
-        }catch(e){
-            console.log(e);
-            alert('Error in taking photo: '+ e);
-        }
-    }
-    return {imageData, takePhoto}
+    
+    return {imageData, captureImage}
 }
