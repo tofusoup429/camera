@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 
 export const useMobileCameraFullScreen = ()=> {
-    const [isStreaming, handleIsStreaming] = useState<boolean>(false);
+    //const [isStreaming, handleIsStreaming] = useState<boolean>(false);
     const [videoDem, handleVideoDem] = useState<{w:number, h:number}>({w:0, h:0})
     const [imageData, handleImageData] = useState('');
     let video:HTMLVideoElement;
@@ -34,7 +34,7 @@ export const useMobileCameraFullScreen = ()=> {
                     canvas.setAttribute('width', videoWidth.toString());
                     canvas.setAttribute('height', videoHeight.toString());
                     video.play();
-                    handleIsStreaming(true);
+                    //handleIsStreaming(true);
                 }
             }).catch((e)=>{
                 console.log(e);
@@ -73,5 +73,5 @@ export const useMobileCameraFullScreen = ()=> {
             alert('Error in taking photo: '+ e);
         }
     }
-    return {isStreaming, handleIsStreaming, imageData, takePhoto}
+    return {imageData, takePhoto}
 }

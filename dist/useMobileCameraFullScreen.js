@@ -39,9 +39,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.useMobileCameraFullScreen = void 0;
 var react_1 = require("react");
 var useMobileCameraFullScreen = function () {
-    var _a = react_1.useState(false), isStreaming = _a[0], handleIsStreaming = _a[1];
-    var _b = react_1.useState({ w: 0, h: 0 }), videoDem = _b[0], handleVideoDem = _b[1];
-    var _c = react_1.useState(''), imageData = _c[0], handleImageData = _c[1];
+    //const [isStreaming, handleIsStreaming] = useState<boolean>(false);
+    var _a = react_1.useState({ w: 0, h: 0 }), videoDem = _a[0], handleVideoDem = _a[1];
+    var _b = react_1.useState(''), imageData = _b[0], handleImageData = _b[1];
     var video;
     var canvas;
     react_1.useEffect(function () {
@@ -71,7 +71,7 @@ var useMobileCameraFullScreen = function () {
                     canvas.setAttribute('width', videoWidth.toString());
                     canvas.setAttribute('height', videoHeight.toString());
                     video.play();
-                    handleIsStreaming(true);
+                    //handleIsStreaming(true);
                 };
             }).catch(function (e) {
                 console.log(e);
@@ -120,6 +120,6 @@ var useMobileCameraFullScreen = function () {
             return [2 /*return*/];
         });
     }); };
-    return { isStreaming: isStreaming, handleIsStreaming: handleIsStreaming, imageData: imageData, takePhoto: takePhoto };
+    return { imageData: imageData, takePhoto: takePhoto };
 };
 exports.useMobileCameraFullScreen = useMobileCameraFullScreen;
