@@ -41,8 +41,8 @@ var react_1 = require("react");
 var useCamera = function () {
     //const [isStreaming, handleIsStreaming] = useState<boolean>(false);
     var _a = react_1.useState({ w: 0, h: 0 }), videoDem = _a[0], handleVideoDem = _a[1];
-    var cameraFacingMode = react_1.useState('environment')[0];
-    var _b = react_1.useState(''), imageData = _b[0], handleImageData = _b[1];
+    var _b = react_1.useState('environment'), cameraFacingMode = _b[0], handleCameraFacingMode = _b[1];
+    var _c = react_1.useState(''), imageData = _c[0], handleImageData = _c[1];
     var video;
     var canvas;
     react_1.useEffect(function () {
@@ -83,7 +83,10 @@ var useCamera = function () {
             alert('error1: ' + e);
             console.log(e);
         }
-    }, []);
+    }, [cameraFacingMode]);
+    var switchCameraFacingMode = function () {
+        handleCameraFacingMode(function (old) { return (old === 'environment') ? "user" : "environment"; });
+    };
     var captureImage = function () { return __awaiter(void 0, void 0, void 0, function () {
         var video_1, canvas_1, context, imageData1;
         return __generator(this, function (_a) {
@@ -105,6 +108,6 @@ var useCamera = function () {
             return [2 /*return*/];
         });
     }); };
-    return { imageData: imageData, captureImage: captureImage };
+    return { imageData: imageData, captureImage: captureImage, switchCameraFacingMode: switchCameraFacingMode };
 };
 exports.useCamera = useCamera;
