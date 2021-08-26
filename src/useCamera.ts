@@ -1,8 +1,11 @@
 import {useEffect, useState} from 'react';
 
+type CameraFacingMode = "environment"|"user"
+
 export const useCamera = ()=> {
     //const [isStreaming, handleIsStreaming] = useState<boolean>(false);
     const [videoDem, handleVideoDem] = useState<{w:number, h:number}>({w:0, h:0})
+    const [cameraFacingMode, handleCameraFacingMode] = useState<CameraFacingMode>('environment')
     const [imageData, handleImageData] = useState('');
     let video:HTMLVideoElement;
     let canvas:HTMLCanvasElement;
@@ -16,7 +19,7 @@ export const useCamera = ()=> {
                 video:{
                     width:{ideal:4096},
                     height:{ideal:2160},
-                    facingMode:"environment"
+                    facingMode:cameraFacingMode
                 },
                 audio:false
             }
@@ -27,7 +30,7 @@ export const useCamera = ()=> {
                     console.log('video', video);
                     let {clientLeft, clientTop, videoWidth, videoHeight} = video
                     handleVideoDem({w:videoWidth, h:videoHeight})
-                    //match canvas position with video
+                    //align canvas position with video position
                     canvas.style.position="absolute";
                     canvas.style.left=clientLeft.toString();
                     canvas.style.top=clientTop.toString();
@@ -44,7 +47,11 @@ export const useCamera = ()=> {
             alert('error1: '+ e);
             console.log(e);
         }
-    },[]);
+    },[cameraFacingMode]);
+
+    const switchCameraFacingMode = () => {
+        handleCameraFacingMode(old=>(old==='environment')?"user":"environment")
+    }
 
     const captureImage = async ():Promise<string> => {
         try{
@@ -63,5 +70,5 @@ export const useCamera = ()=> {
         }
     }
     
-    return {imageData, captureImage}
+    return {imageData, captureImage, switchCameraFacingMode}
 }

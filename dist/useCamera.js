@@ -41,6 +41,7 @@ var react_1 = require("react");
 var useCamera = function () {
     //const [isStreaming, handleIsStreaming] = useState<boolean>(false);
     var _a = react_1.useState({ w: 0, h: 0 }), videoDem = _a[0], handleVideoDem = _a[1];
+    var cameraFacingMode = react_1.useState('environment')[0];
     var _b = react_1.useState(''), imageData = _b[0], handleImageData = _b[1];
     var video;
     var canvas;
@@ -53,7 +54,7 @@ var useCamera = function () {
                 video: {
                     width: { ideal: 4096 },
                     height: { ideal: 2160 },
-                    facingMode: "environment"
+                    facingMode: cameraFacingMode
                 },
                 audio: false
             };
@@ -64,7 +65,7 @@ var useCamera = function () {
                     console.log('video', video);
                     var clientLeft = video.clientLeft, clientTop = video.clientTop, videoWidth = video.videoWidth, videoHeight = video.videoHeight;
                     handleVideoDem({ w: videoWidth, h: videoHeight });
-                    //match canvas position with video
+                    //align canvas position with video position
                     canvas.style.position = "absolute";
                     canvas.style.left = clientLeft.toString();
                     canvas.style.top = clientTop.toString();
