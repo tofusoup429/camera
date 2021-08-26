@@ -35,8 +35,11 @@ It takes no parameter and returns 4 objects,"cameraFacingMode", "switchCameraFac
 | imageData | string | The result of captureImage |
 
 3. An example usage of imitating mobile application
-* The following example makes the video and canvas element extend full-screen using {width, height} from useWindowSize. You may change the width and height on your need. 
-```
+* It is up to you to decide styles, position, size of video and canvas, but the component using useCamera should have one video element and one canvas element.
+* The example extends the video and canvas element full-screen using {width, height} from useWindowSize. 
+* In the example, every time the CaptureImageButton is pressed, imageData is returned and saved in the imageDatas state, which is an array. The saved imageData are cumulatively displayed in image elements 2 x n.  
+
+```typescript
 import {useEffect, useState} from 'react';
 import {useCamera} from '@tofusoup429/camera';
 import { useWindowSize } from '@tofusoup429/use-window-size';
@@ -57,8 +60,8 @@ const SimpleCamera1 = () => {
                 <video width={width} style={{objectFit:'contain'}} />
                 <canvas style={{opacity:0}} />
             </div>
-            <LensSharpIcon id='CaptureImageButton' fontSize='large' color="secondary" style={{position:'absolute', top:height*0.9, left:width*0.5, transform: "translate(-50%, -50%)"}} onClick={captureImage} />
-            <LoopIcon id='SwitchCameraButton' fontSize='large' color="secondary" style={{position:'absolute', top:height*0.05, left:width*0.05, transform: "translate(-50%, -50%)" }} onClick={switchCameraFacingMode} />
+            <LensSharpIcon id='CaptureImageButton' fontSize='large' color="secondary" style={{width:'75px', height:"75px", position:'absolute', top:height*0.9, left:width*0.5, transform: "translate(-50%, -50%)"}} onClick={captureImage} />
+            <LoopIcon id='SwitchCameraButton' fontSize='large' color="secondary" style={{position:'absolute', top:'40px', left:'40px', transform: "translate(-50%, -50%)" }} onClick={switchCameraFacingMode} />
             {imageDatas.length>0 && 
             <div style={{display:"flex", flexDirection:"row", justifyContent:"center", flexWrap:'wrap', margin:'1%', padding:'1%' }}>
                 {
@@ -70,11 +73,9 @@ const SimpleCamera1 = () => {
                 }
             </div>
             }
-            
         </div>
     ) 
 }
-
 export default SimpleCamera1
 ```
 
