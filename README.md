@@ -13,7 +13,7 @@ yarn add @tofusoup429/camera
 
 ## hooks and components in this module
 |num| name | type  | ready  | description  |
-|---:| :------- | :--- | :--- |:---------------------------------------------|
+|---:| :------- | :--- | :--- |---------------------------------------------|
 |1| useMobileCameraFullScreen | hook |true| This handles web-api of camera to take full-screen-viewed camera on mobile-browser, imitating that of a mobile application |
 |2| MobileCameraFullScreen | component |false| This renders camera-view full-screen on a mobile browser |
 
@@ -26,7 +26,7 @@ This is a custom-hook that handles web APIs of camera. Currently ready and expec
 2.returns 
 
 | returns | type  | description  |
-| :------- | :--- | :--- |
+| :------- | :--- | --- |
 | isStreaming | boolean | whether or not video is playing |
 | handleIsStreaming | (arg:boolean)=>void | control on and off of video |
 | imageData | string | dataUrl of captured image |
