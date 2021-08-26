@@ -11,14 +11,12 @@ yarn add @tofusoup429/camera
 ```
 
 ## hooks and component
+### useMobileCameraFullScreen
 This is a custom-hook that handles web APIs of camera. Currently ready and expected modules are as follows 
 | name | type  | ready  | description  |
-| ------- | --- | --- |
+| ------- | --- | --- |---------------------------------------------|
 | useMobileCameraFullScreen | hook |true| This handle web-api of camera to take full-screen-viewed camaer on mobile-browser, imitating full-screened camera view on mobile application |
 | MobileCameraFullScreen | component |false| This renders camera-view on full-screen on a mobile browser |
-
-
-### useMobileCameraFullScreen
 
 1.paramaters => non
 
