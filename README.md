@@ -1,15 +1,17 @@
-## What is this project about?
-This is module that enables to use camera on web-browsers full-screen like mobile-appplications 
-#### github repository  
+### What is this project about?
+This is a module that handles camera on browsers. 
+### Repository and installation 
+repository
 ```
 git clone https://github.com/tofusoup429/dropzone
 ```
-#### Install npm package
+install
 ```
 yarn add @tofusoup429/camera
 ```
 
-#### how to import
+#### useMobileCameraFullScreen
+This is a custom-hook that handles web-api of camera when you want camera on mobile web-browsers full-screen.
 ```
 import { useMobileCameraFullScreen } from "@tofusoup429/camera";
 
