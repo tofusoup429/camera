@@ -1,8 +1,9 @@
 {
   "name": "@tofusoup429/camera",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This module provides APIs for web camera",
-  "homepage": "https://github.com/tofusoup429/camera",
+  "repository": "https://github.com/tofusoup429/camera",
+  "homepage": "https://www.kimsangki.com/module/camera",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
@@ -22,5 +23,9 @@
   "files": [
     "/dist",
     "package.json"
+  ],
+  "keywords": [
+    "web camera",
+    "take picture on web browser"
   ]
 }
