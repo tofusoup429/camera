@@ -3,7 +3,6 @@ import {useEffect, useState} from 'react';
 type CameraFacingMode = "environment"|"user"
 
 export const useCamera = ()=> {
-    //const [isStreaming, handleIsStreaming] = useState<boolean>(false);
     const [videoDem, handleVideoDem] = useState<{w:number, h:number}>({w:0, h:0})
     const [cameraFacingMode, handleCameraFacingMode] = useState<CameraFacingMode>('environment')
     const [imageData, handleImageData] = useState('');
@@ -12,7 +11,7 @@ export const useCamera = ()=> {
 
     useEffect(()=>{
         try{
-            //#1 get permission to use video
+            //find video and canvas elements by tagNames
             video = document.getElementsByTagName('video')[0];
             canvas = document.getElementsByTagName('canvas')[0];
             let constraint = {
@@ -27,7 +26,7 @@ export const useCamera = ()=> {
                 video.setAttribute("playsinline", "true");
                 video.srcObject = stream;
                 video.onloadedmetadata = ()=>{
-                    console.log('video', video);
+                    //console.log('video', video);
                     let {clientLeft, clientTop, videoWidth, videoHeight} = video
                     handleVideoDem({w:videoWidth, h:videoHeight})
                     //align canvas position with video position
@@ -37,7 +36,6 @@ export const useCamera = ()=> {
                     canvas.setAttribute('width', videoWidth.toString());
                     canvas.setAttribute('height', videoHeight.toString());
                     video.play();
-                    //handleIsStreaming(true);
                 }
             }).catch((e)=>{
                 console.log(e);
@@ -70,5 +68,5 @@ export const useCamera = ()=> {
         }
     }
     
-    return {imageData, captureImage, switchCameraFacingMode}
+    return {cameraFacingMode, switchCameraFacingMode, imageData, captureImage, }
 }
