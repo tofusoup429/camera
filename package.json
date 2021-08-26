@@ -1,6 +1,6 @@
 {
   "name": "@tofusoup429/camera",
-  "version": "0.2.17",
+  "version": "0.2.18",
   "description": "This module enables to use camera on web-browsers like mobile-applications",
   "homepage": "https://github.com/tofusoup429/camera",
   "main": "dist/index.js",
