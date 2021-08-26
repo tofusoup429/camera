@@ -18,17 +18,20 @@ yarn add @tofusoup429/camera
 |2| MobileCameraFullScreen | component |false| This renders camera-view full-screen on a mobile browser |
 
 ### 1.useMobileCameraFullScreen
-This is a custom-hook that handles web APIs of camera. Currently ready and expected modules are as follows 
+* As the name implies, this is a custom-hook providing APIs to use mobile-camera on mobile-web-browsers. 
+* The motive of building this hook is to replace mobile-application with mobile-web-browser.
+* This hook is used in the MobileCameraFullScreen. But without the component, you can build your own components with this hook. 
 
+It takes no parameter and returns only two and return "takePhoto" and "imageData".  
 
-1.paramaters => non
+1.paramaters => none
 
 2.returns 
 
 | returns | type  | description  |
 | :------- | :--- | --- |
-| isStreaming | boolean | whether or not video is playing |
-| handleIsStreaming | (arg:boolean)=>void | control on and off of video |
-| imageData | string | dataUrl of captured image |
 | takePhoto | ()=>void | action to take photo |
+| imageData | string | dataUrl of captured image |
 
+
+### 2.MobileCameraFullScreen
