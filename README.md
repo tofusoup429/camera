@@ -1,5 +1,5 @@
 ## What is this project about?
-This project contains hooks that handle camera APIs on browsers.
+This project contains hooks that handle media device APIs on web browsers.
 
 ## Repository and installation 
 * repository
@@ -34,5 +34,9 @@ It takes no parameter and returns 4 objects,"cameraFacingMode", "switchCameraFac
 | captureImage | ()=>string | Take photo of still image on video stream |
 | imageData | string | The result of captureImage |
 
+3.Simple usages
+* working on...
+
 
 ### 2.MobileCameraFullScreen
+* workig on...
