@@ -26,7 +26,7 @@ export const useCamera = ()=> {
                 video.setAttribute("playsinline", "true");
                 video.srcObject = stream;
                 video.onloadedmetadata = ()=>{
-                    //console.log('video', video);
+                    //get position of video tag;
                     let {clientLeft, clientTop, videoWidth, videoHeight} = video
                     handleVideoDem({w:videoWidth, h:videoHeight})
                     //align canvas position with video position
@@ -52,6 +52,7 @@ export const useCamera = ()=> {
     }
 
     const captureImage = async ():Promise<string> => {
+        //take photo
         try{
             let video:HTMLVideoElement = document.getElementsByTagName('video')[0]
             let canvas:HTMLCanvasElement = document.getElementsByTagName('canvas')[0];

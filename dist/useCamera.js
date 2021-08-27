@@ -61,7 +61,7 @@ var useCamera = function () {
                 video.setAttribute("playsinline", "true");
                 video.srcObject = stream;
                 video.onloadedmetadata = function () {
-                    //console.log('video', video);
+                    //get position of video tag;
                     var clientLeft = video.clientLeft, clientTop = video.clientTop, videoWidth = video.videoWidth, videoHeight = video.videoHeight;
                     handleVideoDem({ w: videoWidth, h: videoHeight });
                     //align canvas position with video position
@@ -88,6 +88,7 @@ var useCamera = function () {
     var captureImage = function () { return __awaiter(void 0, void 0, void 0, function () {
         var video_1, canvas_1, context, imageData1;
         return __generator(this, function (_a) {
+            //take photo
             try {
                 video_1 = document.getElementsByTagName('video')[0];
                 canvas_1 = document.getElementsByTagName('canvas')[0];
