@@ -1,6 +1,6 @@
 {
   "name": "@tofusoup429/camera",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "This module provides APIs for web camera",
   "repository": "https://github.com/tofusoup429/camera",
   "homepage": "https://www.kimsangki.com/module/camera",
@@ -32,11 +32,5 @@
   "keywords": [
     "web camera",
     "take picture on web browser"
-  ],
-  "dependencies": {
-    "@material-ui/core": "^4.12.3",
-    "@material-ui/icons": "^4.11.2",
-    "@tofusoup429/camera": "^1.0.4",
-    "@tofusoup429/use-window-size": "^0.0.1"
-  }
+  ]
 }
