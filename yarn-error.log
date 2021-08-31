@@ -1,32 +1,38 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn build
+  C:\Program Files\nodejs\node.exe C:\Users\tofus\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @tofusoup429/use-window-sizes
 
 PATH: 
-  /home/stevekim/anaconda3/bin:/home/stevekim/.cargo/bin:/home/stevekim/anaconda3/bin:/home/stevekim/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+  C:\Users\tofus\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\tofus\bin;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0;C:\windows\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\MinGW\bin;C:\Users\tofus\AppData\Local\Microsoft\WindowsApps;C:\Users\tofus\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\tofus\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
 
 Yarn version: 
   1.22.10
 
 Node version: 
-  14.15.1
+  14.17.1
 
 Platform: 
-  linux x64
+  win32 x64
 
 Trace: 
-  SyntaxError: /home/stevekim/PycharmProjects/react-modules/dropzone/package.json: Unexpected token } in JSON at position 489
-      at JSON.parse (<anonymous>)
-      at /usr/local/lib/node_modules/yarn/lib/cli.js:1625:59
-      at Generator.next (<anonymous>)
-      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
-      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
+  Error: https://registry.npmjs.org/@tofusoup429%2fuse-window-sizes: Not found
+      at Request.params.callback [as _callback] (C:\Users\tofus\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66988:18)
+      at Request.self.callback (C:\Users\tofus\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140662:22)
+      at Request.emit (events.js:375:28)
+      at Request.<anonymous> (C:\Users\tofus\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141634:10)
+      at Request.emit (events.js:375:28)
+      at IncomingMessage.<anonymous> (C:\Users\tofus\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141556:12)
+      at Object.onceWrapper (events.js:481:28)
+      at IncomingMessage.emit (events.js:387:35)
+      at endReadableNT (internal/streams/readable.js:1317:12)
+      at processTicksAndRejections (internal/process/task_queues.js:82:21)
 
 npm manifest: 
   {
-    "name": "@tofusoup429/dropzone",
-    "version": "0.0.5",
-    "description": "dropzone",
-    "homepage": "https://github.com/tofusoup429/dropzone",
+    "name": "@tofusoup429/camera",
+    "version": "1.0.4",
+    "description": "This module provides APIs for web camera",
+    "repository": "https://github.com/tofusoup429/camera",
+    "homepage": "https://www.kimsangki.com/module/camera",
     "main": "dist/index.js",
     "license": "MIT",
     "scripts": {
@@ -40,13 +46,26 @@ npm manifest:
       "typescript": ">=4.2.4"
     },
     "peerDependencies": {
+      "@material-ui/core": "^4.12.3",
+      "@material-ui/icons": "^4.11.2",
+      "@tofusoup429/camera": "^1.0.4",
+      "@tofusoup429/use-window-size": "^0.0.1",
+      "@types/material-ui": "^0.21.9",
       "react": ">=17.0.2",
-      "react-dom": ">=17.0.2",
+      "react-dom": ">=17.0.2"
     },
     "files": [
       "/dist",
       "package.json"
-    ]
+    ],
+    "keywords": [
+      "web camera",
+      "take picture on web browser"
+    ],
+    "dependencies": {
+      "@material-ui/icons": "^4.11.2",
+      "@tofusoup429/camera": "^1.0.4"
+    }
   }
 
 yarn manifest: 
@@ -57,13 +76,24 @@ Lockfile:
   # yarn lockfile v1
   
   
-  "@types/hoist-non-react-statics@*":
-    version "3.3.1"
-    resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
-    integrity sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==
+  "@babel/runtime@^7.4.4":
+    version "7.15.3"
+    resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.15.3.tgz#2e1c2880ca118e5b2f9988322bd8a7656a32502b"
+    integrity sha512-OvwMLqNXkCXSz1kSm58sEsNuhqOx/fKpnUnKnFB5v8uDda5bLNEHNgKPvhDN6IU0LDcnHQ90LlJ0Q6jnyBSIBA==
     dependencies:
-      "@types/react" "*"
-      hoist-non-react-statics "^3.3.0"
+      regenerator-runtime "^0.13.4"
+  
+  "@material-ui/icons@^4.11.2":
+    version "4.11.2"
+    resolved "https://registry.npmjs.org/@material-ui/icons/-/icons-4.11.2.tgz#b3a7353266519cd743b6461ae9fdfcb1b25eb4c5"
+    integrity sha512-fQNsKX2TxBmqIGJCSi3tGTO/gZ+eJgWmMJkgDiOfyNaunNaxcklJQFaFogYcFl0qFuaEz1qaXYXboa/bUXVSOQ==
+    dependencies:
+      "@babel/runtime" "^7.4.4"
+  
+  "@tofusoup429/camera@^1.0.4":
+    version "1.0.4"
+    resolved "https://registry.npmjs.org/@tofusoup429/camera/-/camera-1.0.4.tgz#19e4713df1dcb57556cce4faf6589f65c19c3964"
+    integrity sha512-XWgfad1rbjHrtR6A5ogrEiars0Tj2j4rYZVdUHsymgxS1qDLMnfyW0V5Hfa/DYK2j+xKPIGDrdkl4NCDnUxmNQ==
   
   "@types/prop-types@*":
     version "15.7.3"
@@ -91,26 +121,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.1.tgz#18845205e86ff0038517aab7a18a62a6b9f71275"
     integrity sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==
   
-  "@types/styled-components@^5.1.9":
-    version "5.1.9"
-    resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-5.1.9.tgz#00d3d84b501420521c4db727e3c195459f87a6cf"
-    integrity sha512-kbEG6YlwK8rucITpKEr6pA4Ho9KSQHUUOzZ9lY3va1mtcjvS3D0wDciFyHEiNHKLL/npZCKDQJqm0x44sPO9oA==
-    dependencies:
-      "@types/hoist-non-react-statics" "*"
-      "@types/react" "*"
-      csstype "^3.0.2"
-  
   csstype@^3.0.2:
     version "3.0.8"
     resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.8.tgz#d2266a792729fb227cd216fb572f43728e1ad340"
     integrity sha512-jXKhWqXPmlUeoQnF/EhTtTl4C9SnrxSH/jZUih3jmO6lBKr99rP3/+FmrMj4EFpOXzMtXHAZkd3x0E6h6Fgflw==
-  
-  hoist-non-react-statics@^3.3.0:
-    version "3.3.2"
-    resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"
-    integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
-    dependencies:
-      react-is "^16.7.0"
   
   "js-tokens@^3.0.0 || ^4.0.0":
     version "4.0.0"
@@ -138,11 +152,6 @@ Lockfile:
       object-assign "^4.1.1"
       scheduler "^0.20.2"
   
-  react-is@^16.7.0:
-    version "16.13.1"
-    resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
-    integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
-  
   react@>=17.0.2:
     version "17.0.2"
     resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
@@ -150,6 +159,11 @@ Lockfile:
     dependencies:
       loose-envify "^1.1.0"
       object-assign "^4.1.1"
+  
+  regenerator-runtime@^0.13.4:
+    version "0.13.9"
+    resolved "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz#8925742a98ffd90814988d7566ad30ca3b263b52"
+    integrity sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==
   
   scheduler@^0.20.2:
     version "0.20.2"

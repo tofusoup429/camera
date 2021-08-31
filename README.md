@@ -34,7 +34,7 @@ It takes no parameter and returns 4 objects,"cameraFacingMode", "switchCameraFac
 | captureImage | ()=>string | Take photo of still image on video stream |
 | imageData | string | The result of captureImage |
 
-3. An example usage of imitating mobile application's taking photo view
+3. An example usage of imitating mobile application's taking photo feature
  
 ```typescript
 import {useEffect, useState} from 'react';
@@ -42,13 +42,14 @@ import {useCamera} from '@tofusoup429/camera';
 import { useWindowSize } from '@tofusoup429/use-window-size';
 import LensSharpIcon from '@material-ui/icons/LensSharp';
 import LoopIcon from '@material-ui/icons/Loop';
-const SimpleCamera1 = () => {
-    let {width, height} = useWindowSize()
-    const {captureImage ,imageData, switchCameraFacingMode} = useCamera();
-    const [imageDatas, handleImageDatas] = useState<string[]>([])  
+const FullScreenMobileView = () => {
+    let {width, height} = useWindowSize() // get width and height as everytime screen resized. 
+    const {captureImage ,imageData, switchCameraFacingMode} = useCamera(); // customHook that contains logics
+    const [imageDatas, handleImageDatas] = useState<string[]>([]) // capture imageUrls are saved in this state. 
     
     useEffect(()=>{
-        handleImageDatas([...imageDatas, imageData])
+        //whenever imageData changed, which means captureImage is executed, imageUrl is cumulated in the array. 
+        handleImageDatas([...imageDatas, imageData]) 
     }, [imageData])
     
     return(
@@ -57,22 +58,10 @@ const SimpleCamera1 = () => {
                 <video width={width} style={{objectFit:'contain'}} />
                 <canvas style={{opacity:0}} />
             </div>
-            <LensSharpIcon 
-                id='CaptureImageButton' 
-                fontSize='large' 
-                color="secondary" 
-                style={{width:'75px', height:"75px", position:'absolute', top:height*0.9, left:width*0.5, transform: "translate(-50%, -50%)"}} 
-                onClick={captureImage} 
-            />
-            <LoopIcon 
-                id='SwitchCameraButton' 
-                fontSize='large' 
-                color="secondary" 
-                style={{position:'absolute', top:'40px', left:'40px', transform: "translate(-50%, -50%)" }} 
-                onClick={switchCameraFacingMode} 
-            />
+            <LensSharpIcon id='CaptureImageButton' fontSize='large' color="secondary" style={{width:'75px', height:"75px", position:'absolute', top:height*0.9, left:width*0.5, transform: "translate(-50%, -50%)"}} onClick={captureImage} />
+            <LoopIcon id='SwitchCameraButton' fontSize='large' color="secondary" style={{position:'absolute', top:'40px', left:'40px', transform: "translate(-50%, -50%)" }} onClick={switchCameraFacingMode} />
             {imageDatas.length>0 && 
-            <div style={{display:"flex", flexDirection:"row", justifyContent:"center", flexWrap:'wrap', margin:'1%', padding:'1%' }}>
+            <div id="Images" style={{display:"flex", flexDirection:"row", justifyContent:"center", flexWrap:'wrap', margin:'1%', padding:'1%' }}>
                 {
                     imageDatas.map((imageData, index)=>{
                         return(
@@ -82,10 +71,12 @@ const SimpleCamera1 = () => {
                 }
             </div>
             }
+            
         </div>
     ) 
 }
-export default SimpleCamera1
+
+export default FullScreenMobileView;
 ```
 * It is up to you to decide styles, position, size of video and canvas, but the component using useCamera should have one video element and one canvas element.
 * The example extends the video and canvas element full-screen using {width, height} from useWindowSize. 
