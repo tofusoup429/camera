@@ -27,48 +27,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MobileCameraFullScreenView2 = exports.MobileCameraFullScreenView1 = void 0;
 var react_1 = __importStar(require("react"));
 var camera_1 = require("@tofusoup429/camera");
-var use_window_size_1 = require("@tofusoup429/use-window-size");
+var SmallImagesDisplayedOverlapped_1 = require("./SmallImagesDisplayedOverlapped");
 var LensSharp_1 = __importDefault(require("@material-ui/icons/LensSharp"));
 var Loop_1 = __importDefault(require("@material-ui/icons/Loop"));
 var Typography_1 = __importDefault(require("@material-ui/core/Typography"));
-var VideoView_1 = __importDefault(require("./VideoView"));
-var MobileCameraFullScreenView1 = function (_a) {
-    var bucketName = _a.bucketName, objectKey = _a.objectKey;
-    var _b = use_window_size_1.useWindowSize(), width = _b.width, height = _b.height; // get window width and height as everytime screen resized. 
-    var _c = camera_1.useCamera(), captureImage = _c.captureImage, imageData = _c.imageData, switchCameraFacingMode = _c.switchCameraFacingMode; // customHook that contains logics
-    var _d = react_1.useState([]), imageDatas = _d[0], handleImageDatas = _d[1]; // capture imageUrls are saved in this state. 
+var VideoView = function (_a) {
+    var bucketName = _a.bucketName, objectKey = _a.objectKey, handleView = _a.handleView, view = _a.view, width = _a.width, height = _a.height, imageDatas = _a.imageDatas, handleImageDatas = _a.handleImageDatas;
+    var _b = camera_1.useCamera(), captureImage = _b.captureImage, imageData = _b.imageData, switchCameraFacingMode = _b.switchCameraFacingMode; // customHook that contains logics
+    var canvasOpacity = react_1.useState(0)[0];
     react_1.useEffect(function () {
         //whenever imageData changed, which means captureImage is executed, imageUrl is cumulated in the array. 
         if (imageData.length > 10)
             handleImageDatas(__spreadArray(__spreadArray([], imageDatas), [imageData]));
     }, [imageData]);
-    return (react_1.default.createElement("div", { style: { display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "flex-start", width: width, margin: 0 } },
+    return (react_1.default.createElement("div", { id: "VideoView", style: { display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "flex-start", width: width, height: height, overflow: "hidden" } },
         react_1.default.createElement("div", { className: "VideoAndCanvas" },
             react_1.default.createElement("video", { width: width, style: { objectFit: 'contain' } }),
-            react_1.default.createElement("canvas", { style: { opacity: 0 } })),
-        react_1.default.createElement(Typography_1.default, { style: { position: "absolute", top: '30px', right: '30px' } },
+            react_1.default.createElement("canvas", { style: { opacity: canvasOpacity } })),
+        react_1.default.createElement(Typography_1.default, { color: "secondary", variant: "caption", style: { position: "absolute", top: '15px', right: '15px' } },
             react_1.default.createElement("b", null,
                 bucketName,
                 objectKey)),
         react_1.default.createElement(LensSharp_1.default, { id: 'CaptureImageButton', fontSize: 'large', color: "secondary", style: { width: '75px', height: "75px", position: 'absolute', top: height * 0.9, left: width * 0.5, transform: "translate(-50%, -50%)" }, onClick: captureImage }),
         react_1.default.createElement(Loop_1.default, { id: 'SwitchCameraButton', fontSize: 'large', color: "secondary", style: { position: 'absolute', top: '40px', left: '40px', transform: "translate(-50%, -50%)" }, onClick: switchCameraFacingMode }),
         imageDatas.length > 0 &&
-            react_1.default.createElement("div", { id: "Images", style: { display: "flex", flexDirection: "row", justifyContent: "center", flexWrap: 'wrap', margin: '1%', padding: '1%' } }, imageDatas.map(function (imageData, index) {
-                return (imageData.length > 10 && react_1.default.createElement("img", { key: index, src: imageData, width: width * 0.45, alt: 'NoImage' }));
-            }))));
+            react_1.default.createElement(react_1.default.Fragment, null,
+                react_1.default.createElement(Typography_1.default, { id: "imageDataCounter", align: "center", color: "secondary", variant: "caption", style: { position: "absolute", bottom: '15px', right: "15px", zIndex: 1000 } },
+                    react_1.default.createElement("b", null, imageDatas.length)),
+                react_1.default.createElement(SmallImagesDisplayedOverlapped_1.SmallImagesDisplayedOverlapped, { view: view, handleView: handleView, imageDatas: imageDatas, imagesWidth: width * 0.15, bottom: 15, right: 15 }))));
 };
-exports.MobileCameraFullScreenView1 = MobileCameraFullScreenView1;
-var MobileCameraFullScreenView2 = function (_a) {
-    var bucketName = _a.bucketName, objectKey = _a.objectKey;
-    var _b = react_1.useState("videoView"), view = _b[0], handleView = _b[1];
-    var _c = react_1.useState([]), imageDatas = _c[0], handleImageDatas = _c[1]; // capture imageUrls are saved in this state. 
-    var _d = use_window_size_1.useWindowSize(), width = _d.width, height = _d.height;
-    return (react_1.default.createElement(react_1.default.Fragment, null, view === 'videoView' ?
-        react_1.default.createElement(VideoView_1.default, { bucketName: bucketName, objectKey: objectKey, handleView: handleView, view: view, width: width, height: height, imageDatas: imageDatas, handleImageDatas: handleImageDatas })
-        :
-            react_1.default.createElement(ImagesView, { imageDatas: imageDatas, imageWidth: width * 0.45 })));
-};
-exports.MobileCameraFullScreenView2 = MobileCameraFullScreenView2;
+exports.default = VideoView;

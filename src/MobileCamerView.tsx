@@ -5,7 +5,7 @@ import LensSharpIcon from '@material-ui/icons/LensSharp';
 import LoopIcon from '@material-ui/icons/Loop';
 import Typography from "@material-ui/core/Typography";
 import VideoView from './VideoView';
-
+import ImagesView from './ImageView';
 
 interface Props{
     bucketName:string,
@@ -48,8 +48,10 @@ export const MobileCameraFullScreenView1 = ({bucketName, objectKey}:Readonly<Pro
 
 export type View = "videoView"|"imagesView";
 
+
 export const MobileCameraFullScreenView2 = ({bucketName, objectKey}:Readonly<Props>) => {
-    const [view, handleView] = useState<View>("videoView")
+    const [view, handleView] = useState<View>("videoView");
+    const [imageDatas, handleImageDatas] = useState<string[]>([]) // capture imageUrls are saved in this state. 
     let {width, height} = useWindowSize();
     return(
         <>
@@ -61,9 +63,14 @@ export const MobileCameraFullScreenView2 = ({bucketName, objectKey}:Readonly<Pro
                 view={view}
                 width={width}
                 height={height}
+                imageDatas={imageDatas}
+                handleImageDatas={handleImageDatas}
             />
         :
-        <div>imagesView</div>
+            <ImagesView 
+                imageDatas={imageDatas} 
+                imageWidth={width*0.45} 
+            />
         }
         </>
     ) 

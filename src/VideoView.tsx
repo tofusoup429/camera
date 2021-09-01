@@ -12,13 +12,15 @@ interface Props{
     view:View
     width:number
     height:number
+    imageDatas:string[]
+    handleImageDatas:(arg:string[])=>void
 }
 
-const VideoView = ({bucketName, objectKey, handleView, view, width, height}:Props) => {
+const VideoView = ({bucketName, objectKey, handleView, view, width, height, imageDatas, handleImageDatas}:Props) => {
     
     const {captureImage ,imageData, switchCameraFacingMode} = useCamera(); // customHook that contains logics
     const [canvasOpacity,] = useState<number>(0);
-    const [imageDatas, handleImageDatas] = useState<string[]>([]) // capture imageUrls are saved in this state. 
+    
     
     useEffect(()=>{
         //whenever imageData changed, which means captureImage is executed, imageUrl is cumulated in the array. 
@@ -64,7 +66,7 @@ const VideoView = ({bucketName, objectKey, handleView, view, width, height}:Prop
                 view={view}
                 handleView={handleView} 
                 imageDatas={imageDatas} 
-                width={width*0.15} 
+                imagesWidth={width*0.15} 
                 bottom={15} 
                 right={15} 
             />

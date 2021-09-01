@@ -4,12 +4,12 @@ interface Props{
     view:View,
     handleView:(arg:"videoView"|"imagesView")=>void,
     imageDatas:string[],
-    width:number,
+    imagesWidth:number,
     bottom:number,
     right:number
 }
 
-export const SmallImagesDisplayedOverlapped = ({view, handleView, imageDatas, width, bottom=15, right=15}:Props) =>{
+export const SmallImagesDisplayedOverlapped = ({view, handleView, imageDatas, imagesWidth, bottom=15, right=15}:Props) =>{
 
     const handleViewWrapper = () =>{
         view === 'videoView'? handleView('imagesView'): handleView('imagesView')
@@ -30,7 +30,7 @@ export const SmallImagesDisplayedOverlapped = ({view, handleView, imageDatas, wi
                         <img 
                             key={index} 
                             src={imageData} 
-                            width={width} 
+                            width={imagesWidth} 
                             alt='NoImage' 
                             style={{position:"absolute",zIndex:10+index, bottom:`${bottom-index*1}px`, right:`${right-index*1}px`}}
                         />
