@@ -30,7 +30,7 @@ export const SmallImagesDisplayedOverlapped = ({view, handleView, imageDatas, wi
                         <img 
                             key={index} 
                             src={imageData} 
-                            width={width*0.15} 
+                            width={width} 
                             alt='NoImage' 
                             style={{position:"absolute",zIndex:10+index, bottom:`${bottom-index*1}px`, right:`${right-index*1}px`}}
                         />
