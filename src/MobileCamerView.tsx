@@ -68,8 +68,8 @@ export const MobileCameraFullScreenView2 = ({bucketName, objectKey}:Readonly<Pro
             />
         :
             <ImagesView 
-                imageDatas={imageDatas} 
-                imageWidth={width*0.45} 
+                imageDatas={imageDatas}
+                width={width} 
             />
         }
         </>

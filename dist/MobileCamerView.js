@@ -35,6 +35,7 @@ var LensSharp_1 = __importDefault(require("@material-ui/icons/LensSharp"));
 var Loop_1 = __importDefault(require("@material-ui/icons/Loop"));
 var Typography_1 = __importDefault(require("@material-ui/core/Typography"));
 var VideoView_1 = __importDefault(require("./VideoView"));
+var ImageView_1 = __importDefault(require("./ImageView"));
 var MobileCameraFullScreenView1 = function (_a) {
     var bucketName = _a.bucketName, objectKey = _a.objectKey;
     var _b = use_window_size_1.useWindowSize(), width = _b.width, height = _b.height; // get window width and height as everytime screen resized. 
@@ -69,6 +70,6 @@ var MobileCameraFullScreenView2 = function (_a) {
     return (react_1.default.createElement(react_1.default.Fragment, null, view === 'videoView' ?
         react_1.default.createElement(VideoView_1.default, { bucketName: bucketName, objectKey: objectKey, handleView: handleView, view: view, width: width, height: height, imageDatas: imageDatas, handleImageDatas: handleImageDatas })
         :
-            react_1.default.createElement(ImagesView, { imageDatas: imageDatas, imageWidth: width * 0.45 })));
+            react_1.default.createElement(ImageView_1.default, { imageDatas: imageDatas, width: width })));
 };
 exports.MobileCameraFullScreenView2 = MobileCameraFullScreenView2;
