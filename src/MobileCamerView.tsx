@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {useCamera} from '@tofusoup429/camera';
 import { useWindowSize } from '@tofusoup429/use-window-size';
 import LensSharpIcon from '@material-ui/icons/LensSharp';
 import LoopIcon from '@material-ui/icons/Loop';
 import Typography from "@material-ui/core/Typography";
 import VideoView from './VideoView';
 import ImagesView from './ImageView';
+import {useCamera} from './useCamera';
 
 interface Props{
     bucketName:string,

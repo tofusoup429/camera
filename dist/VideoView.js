@@ -28,14 +28,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importStar(require("react"));
-var camera_1 = require("@tofusoup429/camera");
+var useCamera_1 = require("./useCamera");
 var SmallImagesDisplayedOverlapped_1 = require("./SmallImagesDisplayedOverlapped");
 var LensSharp_1 = __importDefault(require("@material-ui/icons/LensSharp"));
 var Loop_1 = __importDefault(require("@material-ui/icons/Loop"));
 var Typography_1 = __importDefault(require("@material-ui/core/Typography"));
 var VideoView = function (_a) {
     var bucketName = _a.bucketName, objectKey = _a.objectKey, handleView = _a.handleView, view = _a.view, width = _a.width, height = _a.height, imageDatas = _a.imageDatas, handleImageDatas = _a.handleImageDatas;
-    var _b = camera_1.useCamera(), captureImage = _b.captureImage, imageData = _b.imageData, switchCameraFacingMode = _b.switchCameraFacingMode; // customHook that contains logics
+    var _b = useCamera_1.useCamera(), captureImage = _b.captureImage, imageData = _b.imageData, switchCameraFacingMode = _b.switchCameraFacingMode; // customHook that contains logics
     var canvasOpacity = react_1.useState(0)[0];
     react_1.useEffect(function () {
         //whenever imageData changed, which means captureImage is executed, imageUrl is cumulated in the array. 

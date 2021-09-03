@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View} from './MobileCamerView';
-import {useCamera} from "@tofusoup429/camera";
+import {useCamera} from "./useCamera";
 import { SmallImagesDisplayedOverlapped } from './SmallImagesDisplayedOverlapped';
 import LensSharpIcon from '@material-ui/icons/LensSharp';
 import LoopIcon from '@material-ui/icons/Loop';

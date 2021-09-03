@@ -29,17 +29,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MobileCameraFullScreenView2 = exports.MobileCameraFullScreenView1 = void 0;
 var react_1 = __importStar(require("react"));
-var camera_1 = require("@tofusoup429/camera");
 var use_window_size_1 = require("@tofusoup429/use-window-size");
 var LensSharp_1 = __importDefault(require("@material-ui/icons/LensSharp"));
 var Loop_1 = __importDefault(require("@material-ui/icons/Loop"));
 var Typography_1 = __importDefault(require("@material-ui/core/Typography"));
 var VideoView_1 = __importDefault(require("./VideoView"));
 var ImageView_1 = __importDefault(require("./ImageView"));
+var useCamera_1 = require("./useCamera");
 var MobileCameraFullScreenView1 = function (_a) {
     var bucketName = _a.bucketName, objectKey = _a.objectKey;
     var _b = use_window_size_1.useWindowSize(), width = _b.width, height = _b.height; // get window width and height as everytime screen resized. 
-    var _c = camera_1.useCamera(), captureImage = _c.captureImage, imageData = _c.imageData, switchCameraFacingMode = _c.switchCameraFacingMode; // customHook that contains logics
+    var _c = useCamera_1.useCamera(), captureImage = _c.captureImage, imageData = _c.imageData, switchCameraFacingMode = _c.switchCameraFacingMode; // customHook that contains logics
     var _d = react_1.useState([]), imageDatas = _d[0], handleImageDatas = _d[1]; // capture imageUrls are saved in this state. 
     react_1.useEffect(function () {
         //whenever imageData changed, which means captureImage is executed, imageUrl is cumulated in the array. 
