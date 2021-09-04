@@ -1,12 +1,13 @@
 import {useEffect, useState} from 'react';
 type CameraFacingMode = "environment"|"user"
-
+type MediaRecorderStates = "inactive"|'recording'|'paused'|'finished'
 export const useWebRTC1 = ()=> {
-    const [recordVideo, handleRecordVideo] = useState<boolean>(false) 
-    const [cameraFacingMode, handleCameraFacingMode] = useState<CameraFacingMode>('environment')
+    const [cameraFacingMode, handleCameraFacingMode] = useState<CameraFacingMode>('environment');
+    const [mediaRecorderStates, handleMediaRecorderStates] = useState<MediaRecorderStates>('inactive');
+    const [blobURL, handleBlobURL] = useState<string>('');
     let localVideo:HTMLVideoElement;
     let remoteVideo:HTMLVideoElement;
-    
+    let recordedBlobs:any = [];
     useEffect(()=>{
         try{
             //find video and canvas elements by tagNames
@@ -33,25 +34,44 @@ export const useWebRTC1 = ()=> {
                     //get position of video tag;
                     localVideo.play();
                     let mediaRecorder = new MediaRecorder(stream);
-                    let recordButton = document.getElementById('RecordButton');
-                    let requestDataButton = document.getElementById('RequestButton');
-                    if(recordButton){
-                        recordButton.onclick = () =>{
-                            (recordVideo)? mediaRecorder.stop():mediaRecorder.start()
-                            handleRecordVideo(old=>!old)
+                    let startRecordButton = document.getElementById('StartRecordButton');
+                    let stopRecordingButton = document.getElementById('StopRecordingButton');
+                    let pauseRecordingButton = document.getElementById('PauseRecordingButton');
+                    if(startRecordButton){
+                        startRecordButton.onclick = () =>{
+                            if(mediaRecorder.state === 'inactive'){
+                                mediaRecorder.start();
+                            }else if(mediaRecorder.state==='paused'){
+                                mediaRecorder.resume();
+                            }
+                            console.log('recording started');
+                            handleMediaRecorderStates('recording');
                         }
                     }
-                    if(requestDataButton){
-                        requestDataButton.onclick = () =>{
-                            mediaRecorder.requestData();
+                    if(stopRecordingButton){
+                        stopRecordingButton.onclick = () =>{
+                            //mediaRecorder.requestData();
+                            mediaRecorder.stop();
+                            handleMediaRecorderStates('finished')
+                        }
+                    }
+                    if(pauseRecordingButton){
+                        pauseRecordingButton.onclick = () =>{
+                            mediaRecorder.pause();
+                            handleMediaRecorderStates('paused')
                         }
                     }
 
-                    mediaRecorder.ondataavailable = (data) => {
-                        console.log("data", data)
+                    mediaRecorder.ondataavailable = (event) => {
+                        console.log("ondataavailable, event", event);
+                        if (event.data && event.data.size > 0) {
+                            recordedBlobs.push(event.data);
+                            let blobs:Blob = new Blob(recordedBlobs);
+                            let url = window.URL.createObjectURL(blobs);
+                            console.log('bloburl', url)
+                            handleBlobURL(url)
+                          }
                     }
-                    
-
                 }
             }).catch((e)=>{
                 console.log(e);
@@ -69,5 +89,5 @@ export const useWebRTC1 = ()=> {
 
     
     
-    return {cameraFacingMode, switchCameraFacingMode, recordVideo}
+    return {cameraFacingMode, switchCameraFacingMode, blobURL, mediaRecorderStates }
 }

@@ -1,7 +1,9 @@
 declare type CameraFacingMode = "environment" | "user";
+declare type MediaRecorderStates = "inactive" | 'recording' | 'paused' | 'finished';
 export declare const useWebRTC1: () => {
     cameraFacingMode: CameraFacingMode;
     switchCameraFacingMode: () => void;
-    recordVideo: boolean;
+    blobURL: string;
+    mediaRecorderStates: MediaRecorderStates;
 };
 export {};

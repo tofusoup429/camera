@@ -3,10 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.useWebRTC1 = void 0;
 var react_1 = require("react");
 var useWebRTC1 = function () {
-    var _a = react_1.useState(false), recordVideo = _a[0], handleRecordVideo = _a[1];
-    var _b = react_1.useState('environment'), cameraFacingMode = _b[0], handleCameraFacingMode = _b[1];
+    var _a = react_1.useState('environment'), cameraFacingMode = _a[0], handleCameraFacingMode = _a[1];
+    var _b = react_1.useState('inactive'), mediaRecorderStates = _b[0], handleMediaRecorderStates = _b[1];
+    var _c = react_1.useState(''), blobURL = _c[0], handleBlobURL = _c[1];
     var localVideo;
     var remoteVideo;
+    var recordedBlobs = [];
     react_1.useEffect(function () {
         try {
             //find video and canvas elements by tagNames
@@ -35,21 +37,43 @@ var useWebRTC1 = function () {
                     //get position of video tag;
                     localVideo.play();
                     var mediaRecorder = new MediaRecorder(stream);
-                    var recordButton = document.getElementById('RecordButton');
-                    var requestDataButton = document.getElementById('RequestButton');
-                    if (recordButton) {
-                        recordButton.onclick = function () {
-                            (recordVideo) ? mediaRecorder.stop() : mediaRecorder.start();
-                            handleRecordVideo(function (old) { return !old; });
+                    var startRecordButton = document.getElementById('StartRecordButton');
+                    var stopRecordingButton = document.getElementById('StopRecordingButton');
+                    var pauseRecordingButton = document.getElementById('PauseRecordingButton');
+                    if (startRecordButton) {
+                        startRecordButton.onclick = function () {
+                            if (mediaRecorder.state === 'inactive') {
+                                mediaRecorder.start();
+                            }
+                            else if (mediaRecorder.state === 'paused') {
+                                mediaRecorder.resume();
+                            }
+                            console.log('recording started');
+                            handleMediaRecorderStates('recording');
                         };
                     }
-                    if (requestDataButton) {
-                        requestDataButton.onclick = function () {
-                            mediaRecorder.requestData();
+                    if (stopRecordingButton) {
+                        stopRecordingButton.onclick = function () {
+                            //mediaRecorder.requestData();
+                            mediaRecorder.stop();
+                            handleMediaRecorderStates('finished');
                         };
                     }
-                    mediaRecorder.ondataavailable = function (data) {
-                        console.log("data", data);
+                    if (pauseRecordingButton) {
+                        pauseRecordingButton.onclick = function () {
+                            mediaRecorder.pause();
+                            handleMediaRecorderStates('paused');
+                        };
+                    }
+                    mediaRecorder.ondataavailable = function (event) {
+                        console.log("ondataavailable, event", event);
+                        if (event.data && event.data.size > 0) {
+                            recordedBlobs.push(event.data);
+                            var blobs = new Blob(recordedBlobs);
+                            var url = window.URL.createObjectURL(blobs);
+                            console.log('bloburl', url);
+                            handleBlobURL(url);
+                        }
                     };
                 };
             }).catch(function (e) {
@@ -65,6 +89,6 @@ var useWebRTC1 = function () {
     var switchCameraFacingMode = function () {
         handleCameraFacingMode(function (old) { return (old === 'environment') ? "user" : "environment"; });
     };
-    return { cameraFacingMode: cameraFacingMode, switchCameraFacingMode: switchCameraFacingMode, recordVideo: recordVideo };
+    return { cameraFacingMode: cameraFacingMode, switchCameraFacingMode: switchCameraFacingMode, blobURL: blobURL, mediaRecorderStates: mediaRecorderStates };
 };
 exports.useWebRTC1 = useWebRTC1;
