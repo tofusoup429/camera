@@ -68,18 +68,23 @@ var ImagesView = function (_a) {
     var _b = react_1.useState(2), howManyImagesOnWidth = _b[0], handleHowManyImagesOnWidth = _b[1];
     var handleHowManyImagesOnWidthWrapper = function (e) { return handleHowManyImagesOnWidth(parseInt(e.target.value)); };
     var createPDFWithImagesWrapper = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var url, body, data;
+        var url, body, data, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    _a.trys.push([0, 2, , 3]);
                     url = 'https://mpi85.vercel.app/api/pi84/create-pdf-with-images';
                     body = { imageBase64Array: imageDatas };
                     return [4 /*yield*/, axios_1.default.post(url, body)];
                 case 1:
                     data = (_a.sent()).data;
-                    console.log('created pdfFile', data);
                     handlePDFFileBase64(data);
-                    return [2 /*return*/];
+                    return [3 /*break*/, 3];
+                case 2:
+                    e_1 = _a.sent();
+                    handlePDFFileBase64(JSON.stringify(e_1));
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     }); };
