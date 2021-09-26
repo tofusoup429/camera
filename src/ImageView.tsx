@@ -6,25 +6,24 @@ import axios from 'axios';
 interface Props{
     imageDatas:string[]
     width:number,
-    pdfFileBase64:string,
-    handlePDFFileBase64:(arg:string)=>void
 }
 
 
 
-const ImagesView = ({imageDatas, width, handlePDFFileBase64}:Props) =>{
+const ImagesView = ({imageDatas, width}:Props) =>{
     const [howManyImagesOnWidth, handleHowManyImagesOnWidth] = useState<number>(2);
     const handleHowManyImagesOnWidthWrapper = (e:any) => handleHowManyImagesOnWidth(parseInt(e.target.value))    
     const createPDFWithImagesWrapper = async () => {
         try{
-            let url = 'https://mpi85.vercel.app/api/pi84/create-pdf-with-images';
+            let url = 'https://mpi85.vercel.app/api/pi84/create-pdf-with-images/';
             let body = {imageBase64Array:imageDatas}
             let {data} = await axios.post(url,body);
-            handlePDFFileBase64(data);
+            alert(data)
+            //handlePDFFileBase64(data);
         }catch(e){
-            handlePDFFileBase64(JSON.stringify(e))
+            alert("err in createPDFWithImagesWrapper:"+JSON.stringify(e))
+            //handlePDFFileBase64(JSON.stringify(e))
         }
-        
     }
     return(
         <div style={{position:"relative"}}>

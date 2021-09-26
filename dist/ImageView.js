@@ -64,7 +64,7 @@ var MenuItem_1 = __importDefault(require("@material-ui/core/MenuItem"));
 var Button_1 = __importDefault(require("@material-ui/core/Button"));
 var axios_1 = __importDefault(require("axios"));
 var ImagesView = function (_a) {
-    var imageDatas = _a.imageDatas, width = _a.width, handlePDFFileBase64 = _a.handlePDFFileBase64;
+    var imageDatas = _a.imageDatas, width = _a.width;
     var _b = react_1.useState(2), howManyImagesOnWidth = _b[0], handleHowManyImagesOnWidth = _b[1];
     var handleHowManyImagesOnWidthWrapper = function (e) { return handleHowManyImagesOnWidth(parseInt(e.target.value)); };
     var createPDFWithImagesWrapper = function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -78,11 +78,11 @@ var ImagesView = function (_a) {
                     return [4 /*yield*/, axios_1.default.post(url, body)];
                 case 1:
                     data = (_a.sent()).data;
-                    handlePDFFileBase64(data);
+                    alert(data);
                     return [3 /*break*/, 3];
                 case 2:
                     e_1 = _a.sent();
-                    handlePDFFileBase64(JSON.stringify(e_1));
+                    alert("err in createPDFWithImagesWrapper:" + JSON.stringify(e_1));
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
