@@ -14,15 +14,19 @@ const ImagesView = ({imageDatas, width}:Props) =>{
     const [howManyImagesOnWidth, handleHowManyImagesOnWidth] = useState<number>(2);
     const handleHowManyImagesOnWidthWrapper = (e:any) => handleHowManyImagesOnWidth(parseInt(e.target.value))    
     const createPDFWithImagesWrapper = async () => {
+        let url = 'https://mpi85.vercel.app/api/pi84/create-pdf-with-images';
+        let body = {imageBase64Array:imageDatas}
         try{
-            let url = 'https://mpi85.vercel.app/api/pi84/create-pdf-with-images/';
-            let body = {imageBase64Array:imageDatas}
             let {data} = await axios.post(url,body);
             alert(data)
-            //handlePDFFileBase64(data);
         }catch(e){
-            alert("err in createPDFWithImagesWrapper:"+JSON.stringify(e))
-            //handlePDFFileBase64(JSON.stringify(e))
+            try{
+                let headers = {'Content-Type': 'application/json'}
+                let res = await fetch(url, {method:'post',headers:headers, body:JSON.stringify(body)})
+                alert("fetch: "+ JSON.stringify(res.json()))
+            }catch(e){
+                alert(e)
+            }
         }
     }
     return(

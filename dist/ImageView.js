@@ -68,23 +68,37 @@ var ImagesView = function (_a) {
     var _b = react_1.useState(2), howManyImagesOnWidth = _b[0], handleHowManyImagesOnWidth = _b[1];
     var handleHowManyImagesOnWidthWrapper = function (e) { return handleHowManyImagesOnWidth(parseInt(e.target.value)); };
     var createPDFWithImagesWrapper = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var url, body, data, e_1;
+        var url, body, data, e_1, headers, res, e_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
                     url = 'https://mpi85.vercel.app/api/pi84/create-pdf-with-images';
                     body = { imageBase64Array: imageDatas };
-                    return [4 /*yield*/, axios_1.default.post(url, body)];
+                    _a.label = 1;
                 case 1:
+                    _a.trys.push([1, 3, , 8]);
+                    return [4 /*yield*/, axios_1.default.post(url, body)];
+                case 2:
                     data = (_a.sent()).data;
                     alert(data);
-                    return [3 /*break*/, 3];
-                case 2:
+                    return [3 /*break*/, 8];
+                case 3:
                     e_1 = _a.sent();
-                    alert("err in createPDFWithImagesWrapper:" + JSON.stringify(e_1));
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    _a.label = 4;
+                case 4:
+                    _a.trys.push([4, 6, , 7]);
+                    headers = { 'Content-Type': 'application/json' };
+                    return [4 /*yield*/, fetch(url, { method: 'post', headers: headers, body: JSON.stringify(body) })];
+                case 5:
+                    res = _a.sent();
+                    alert("fetch: " + JSON.stringify(res.json()));
+                    return [3 /*break*/, 7];
+                case 6:
+                    e_2 = _a.sent();
+                    alert(e_2);
+                    return [3 /*break*/, 7];
+                case 7: return [3 /*break*/, 8];
+                case 8: return [2 /*return*/];
             }
         });
     }); };
