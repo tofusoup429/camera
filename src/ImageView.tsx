@@ -2,22 +2,26 @@ import React, {useState} from 'react';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 interface Props{
     imageDatas:string[]
     width:number,
-    createPDFWithImages:(arg:string[])=>Promise<string>,
     pdfFileBase64:string,
     handlePDFFileBase64:(arg:string)=>void
 }
 
 
 
-const ImagesView = ({imageDatas, width, createPDFWithImages, handlePDFFileBase64}:Props) =>{
+const ImagesView = ({imageDatas, width, handlePDFFileBase64}:Props) =>{
     const [howManyImagesOnWidth, handleHowManyImagesOnWidth] = useState<number>(2);
     const handleHowManyImagesOnWidthWrapper = (e:any) => handleHowManyImagesOnWidth(parseInt(e.target.value))    
-    const createPDFWithImagesAndUpload = async () => {
-        let pdfFileBase64:string= await createPDFWithImages(imageDatas);
-        handlePDFFileBase64(pdfFileBase64)
+    const createPDFWithImagesWrapper = async () => {
+        let url = 'https://mpi85.vercel.app/api/pi84/create-pdf-with-images';
+        let body = {imageBase64Array:imageDatas}
+        let {data} = await axios.post(url,body);
+        console.log('created pdfFile', data);
+        handlePDFFileBase64(data);
+        alert(data)
     }
     return(
         <div style={{position:"relative"}}>
@@ -34,7 +38,7 @@ const ImagesView = ({imageDatas, width, createPDFWithImages, handlePDFFileBase64
                     <MenuItem value={1}>1 x 1</MenuItem>
                     <MenuItem value={2}>2 x 2</MenuItem>
                 </Select>
-                <Button onClick={createPDFWithImagesAndUpload} size="small" style={{position:"absolute", top:"40px", left:'15px', zIndex:1000, backgroundColor:"#f50057"}}>Upload</Button>
+                <Button onClick={createPDFWithImagesWrapper} size="small" style={{position:"absolute", top:"40px", left:'15px', zIndex:1000, backgroundColor:"#f50057"}}>Upload</Button>
             </div>
         }
         </div>

@@ -62,18 +62,23 @@ var react_1 = __importStar(require("react"));
 var Select_1 = __importDefault(require("@material-ui/core/Select"));
 var MenuItem_1 = __importDefault(require("@material-ui/core/MenuItem"));
 var Button_1 = __importDefault(require("@material-ui/core/Button"));
+var axios_1 = __importDefault(require("axios"));
 var ImagesView = function (_a) {
-    var imageDatas = _a.imageDatas, width = _a.width, createPDFWithImages = _a.createPDFWithImages, handlePDFFileBase64 = _a.handlePDFFileBase64;
+    var imageDatas = _a.imageDatas, width = _a.width, handlePDFFileBase64 = _a.handlePDFFileBase64;
     var _b = react_1.useState(2), howManyImagesOnWidth = _b[0], handleHowManyImagesOnWidth = _b[1];
     var handleHowManyImagesOnWidthWrapper = function (e) { return handleHowManyImagesOnWidth(parseInt(e.target.value)); };
-    var createPDFWithImagesAndUpload = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var pdfFileBase64;
+    var createPDFWithImagesWrapper = function () { return __awaiter(void 0, void 0, void 0, function () {
+        var url, body, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, createPDFWithImages(imageDatas)];
+                case 0:
+                    url = 'https://mpi85.vercel.app/api/pi84/create-pdf-with-images';
+                    body = { imageBase64Array: imageDatas };
+                    return [4 /*yield*/, axios_1.default.post(url, body)];
                 case 1:
-                    pdfFileBase64 = _a.sent();
-                    handlePDFFileBase64(pdfFileBase64);
+                    data = (_a.sent()).data;
+                    console.log('created pdfFile', data);
+                    handlePDFFileBase64(data);
                     return [2 /*return*/];
             }
         });
@@ -86,6 +91,6 @@ var ImagesView = function (_a) {
             react_1.default.createElement(Select_1.default, { value: howManyImagesOnWidth, onChange: handleHowManyImagesOnWidthWrapper, style: { position: "absolute", top: "15px", left: '15px', zIndex: 1000, backgroundColor: "#f50057" } },
                 react_1.default.createElement(MenuItem_1.default, { value: 1 }, "1 x 1"),
                 react_1.default.createElement(MenuItem_1.default, { value: 2 }, "2 x 2")),
-            react_1.default.createElement(Button_1.default, { onClick: createPDFWithImagesAndUpload, size: "small", style: { position: "absolute", top: "40px", left: '15px', zIndex: 1000, backgroundColor: "#f50057" } }, "Upload"))));
+            react_1.default.createElement(Button_1.default, { onClick: createPDFWithImagesWrapper, size: "small", style: { position: "absolute", top: "40px", left: '15px', zIndex: 1000, backgroundColor: "#f50057" } }, "Upload"))));
 };
 exports.default = ImagesView;

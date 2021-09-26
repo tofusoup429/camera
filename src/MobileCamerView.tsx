@@ -10,7 +10,7 @@ interface Props{
     handleImageDatas:(arg:string[])=>void,
     view:View,
     handleView:(arg:View)=>void,
-    createPDFWithImages:(arg:string[])=>Promise<string>,
+    //createPDFWithImages:(arg:string[])=>Promise<string>,
     pdfFileBase64:string,
     handlePDFFileBase64:(arg:string)=>void
 }
@@ -22,7 +22,7 @@ export const MobileCameraFullScreenView2 = ({
     handleImageDatas,
     view,
     handleView,
-    createPDFWithImages,
+    //createPDFWithImages,
     pdfFileBase64,
     handlePDFFileBase64
 }:Props) => {
@@ -44,7 +44,7 @@ export const MobileCameraFullScreenView2 = ({
             <ImagesView 
                 imageDatas={imageDatas}
                 width={width}
-                createPDFWithImages={createPDFWithImages}
+                //createPDFWithImages={createPDFWithImages}
                 pdfFileBase64={pdfFileBase64}
                 handlePDFFileBase64={handlePDFFileBase64}
             />
