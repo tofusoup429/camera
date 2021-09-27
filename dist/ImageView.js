@@ -95,7 +95,7 @@ var ImagesView = function (_a) {
                     return [3 /*break*/, 7];
                 case 6:
                     e_2 = _a.sent();
-                    alert(e_2);
+                    alert("imageView Error1: " + e_2);
                     return [3 /*break*/, 7];
                 case 7: return [3 /*break*/, 8];
                 case 8: return [2 /*return*/];

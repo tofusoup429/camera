@@ -25,7 +25,7 @@ const ImagesView = ({imageDatas, width}:Props) =>{
                 let res = await fetch(url, {method:'post',headers:headers, body:JSON.stringify(body)})
                 alert("fetch: "+ JSON.stringify(res.json()))
             }catch(e){
-                alert(e)
+                alert("imageView Error1: "+e)
             }
         }
     }
