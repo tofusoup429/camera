@@ -1,6 +1,6 @@
 {
   "name": "@tofusoup429/camera",
-  "version": "1.2.48",
+  "version": "1.2.49",
   "description": "This module provides APIs for web camera",
   "repository": "https://github.com/tofusoup429/camera",
   "homepage": "https://www.kimsangki.com/module/camera",
@@ -41,7 +41,6 @@
     "@tofusoup429/pubfuncs": "^1.1.9",
     "@tofusoup429/use-window-size": "^0.0.1",
     "@types/node": "^16.10.1",
-    "axios": "^0.21.4",
-    "pdf-lib": "^1.16.0"
+    "axios": "^0.21.4"
   }
 }
