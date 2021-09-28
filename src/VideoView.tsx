@@ -12,11 +12,11 @@ interface Props{
     view:View
     width:number
     height:number
-    imageDatas:string[]
-    handleImageDatas:(arg:string[])=>void
+    imagesBase64Array:string[]
+    handleImagesBase64Array:(arg:string[])=>void
 }
 
-const VideoView = ({bucketName, objectKey, handleView, view, width, height, imageDatas, handleImageDatas}:Props) => {
+const VideoView = ({bucketName, objectKey, handleView, view, width, height, imagesBase64Array: imageDatas, handleImagesBase64Array}:Props) => {
     
     const {captureImage ,imageData, switchCameraFacingMode} = useCamera(); // customHook that contains logics
     const [canvasOpacity,] = useState<number>(0);
@@ -24,7 +24,7 @@ const VideoView = ({bucketName, objectKey, handleView, view, width, height, imag
     
     useEffect(()=>{
         //whenever imageData changed, which means captureImage is executed, imageUrl is cumulated in the array. 
-        if(imageData.length>10) handleImageDatas([...imageDatas, imageData]) 
+        if(imageData.length>10) handleImagesBase64Array([...imageDatas, imageData]) 
     }, [imageData])
     return(
         <div id="VideoView" style={{display:"flex", flexDirection:"column", justifyContent:"start", alignItems:"flex-start", width:width, height:height, overflow:"hidden"}}>

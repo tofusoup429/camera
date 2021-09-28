@@ -34,13 +34,13 @@ var LensSharp_1 = __importDefault(require("@material-ui/icons/LensSharp"));
 var Loop_1 = __importDefault(require("@material-ui/icons/Loop"));
 var Typography_1 = __importDefault(require("@material-ui/core/Typography"));
 var VideoView = function (_a) {
-    var bucketName = _a.bucketName, objectKey = _a.objectKey, handleView = _a.handleView, view = _a.view, width = _a.width, height = _a.height, imageDatas = _a.imageDatas, handleImageDatas = _a.handleImageDatas;
+    var bucketName = _a.bucketName, objectKey = _a.objectKey, handleView = _a.handleView, view = _a.view, width = _a.width, height = _a.height, imageDatas = _a.imagesBase64Array, handleImagesBase64Array = _a.handleImagesBase64Array;
     var _b = useCamera_1.useCamera(), captureImage = _b.captureImage, imageData = _b.imageData, switchCameraFacingMode = _b.switchCameraFacingMode; // customHook that contains logics
     var canvasOpacity = react_1.useState(0)[0];
     react_1.useEffect(function () {
         //whenever imageData changed, which means captureImage is executed, imageUrl is cumulated in the array. 
         if (imageData.length > 10)
-            handleImageDatas(__spreadArray(__spreadArray([], imageDatas), [imageData]));
+            handleImagesBase64Array(__spreadArray(__spreadArray([], imageDatas), [imageData]));
     }, [imageData]);
     return (react_1.default.createElement("div", { id: "VideoView", style: { display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "flex-start", width: width, height: height, overflow: "hidden" } },
         react_1.default.createElement("div", { className: "VideoAndCanvas" },

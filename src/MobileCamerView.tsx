@@ -6,19 +6,21 @@ export type View = "videoView"|"imagesView";
 interface Props{
     bucketName:string,
     objectKey:string,
-    imageDatas:string[],
-    handleImageDatas:(arg:string[])=>void,
+    imagesBase64Array:string[],
+    handleImagesBase64Array:(arg:string[])=>void,
     view:View,
     handleView:(arg:View)=>void,
+    uploadMergedImages?:()=>void
 }
 
 export const MobileCameraFullScreenView2 = ({
     bucketName, 
     objectKey, 
-    imageDatas, 
-    handleImageDatas,
+    imagesBase64Array, 
+    handleImagesBase64Array,
     view,
     handleView,
+    uploadMergedImages
 }:Props) => {
     let {width, height} = useWindowSize();
     return(
@@ -31,13 +33,14 @@ export const MobileCameraFullScreenView2 = ({
                 view={view}
                 width={width}
                 height={height}
-                imageDatas={imageDatas}
-                handleImageDatas={handleImageDatas}
+                imagesBase64Array={imagesBase64Array}
+                handleImagesBase64Array={handleImagesBase64Array}
             />
         :
             <ImagesView 
-                imageDatas={imageDatas}
+                imagesBase64Array={imagesBase64Array}
                 width={width}
+                uploadMergedImages={uploadMergedImages}
             />
         }
         </>

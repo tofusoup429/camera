@@ -7,8 +7,8 @@ interface Props {
     view: View;
     width: number;
     height: number;
-    imageDatas: string[];
-    handleImageDatas: (arg: string[]) => void;
+    imagesBase64Array: string[];
+    handleImagesBase64Array: (arg: string[]) => void;
 }
-declare const VideoView: ({ bucketName, objectKey, handleView, view, width, height, imageDatas, handleImageDatas }: Props) => JSX.Element;
+declare const VideoView: ({ bucketName, objectKey, handleView, view, width, height, imagesBase64Array: imageDatas, handleImagesBase64Array }: Props) => JSX.Element;
 export default VideoView;
