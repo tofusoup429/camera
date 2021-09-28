@@ -2,30 +2,48 @@ import React, {useState} from 'react';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
+import { PDFDocument } from 'pdf-lib';
+import {removeFileHeaderFromBase64AndConvertToUint8Array} from '@tofusoup429/pubfuncs';
+
 interface Props{
     imageDatas:string[]
     width:number,
 }
 
-
+const createPDFWithImages = async (imageBase64Array:string[]):Promise<string> => {
+    if(imageBase64Array.length>0){
+        let pdfDoc = await PDFDocument.create();
+        for(let image of imageBase64Array){
+            let imageUint8 = removeFileHeaderFromBase64AndConvertToUint8Array(image);
+            let embedImage = await pdfDoc.embedPng(imageUint8);
+            let imageDim = embedImage.scale(1);
+            let page = pdfDoc.addPage();
+            page.drawImage(embedImage, {
+                x:0,
+                y:0,
+                width:imageDim.width,
+                height:imageDim.height,
+            })
+        }
+        const pdfByteUint8:Uint8Array = await pdfDoc.save();
+        let b64:string = Buffer.from(pdfByteUint8).toString('base64');
+        return "data:application/pdf;base64,"+b64
+    }else{
+        throw Error('error in creating pdfFile')
+    }   
+}
 
 const ImagesView = ({imageDatas, width}:Props) =>{
     const [howManyImagesOnWidth, handleHowManyImagesOnWidth] = useState<number>(2);
     const handleHowManyImagesOnWidthWrapper = (e:any) => handleHowManyImagesOnWidth(parseInt(e.target.value))    
     const createPDFWithImagesWrapper = async () => {
-        let url = 'https://mpi85.vercel.app/api/pi84/create-pdf-with-images';
-        let body = {imageBase64Array:imageDatas};
         try{
-            let {data} = await axios.post(url,body);
-            alert(data)
+            let data = await createPDFWithImages(imageDatas);
+            localStorage.setItem('pdf', data)
+            //console.log('data', data)
+            //alert(data)
         }catch(e){
-            try{
-                let res = await fetch(url, {method:'post', body:JSON.stringify(body)})
-                alert("fetch: "+ JSON.stringify(res.json()))
-            }catch(e){
-                alert("imageView Error1: "+e)
-            }
+            //alert
         }
     }
     return(

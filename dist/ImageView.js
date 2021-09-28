@@ -62,43 +62,66 @@ var react_1 = __importStar(require("react"));
 var Select_1 = __importDefault(require("@material-ui/core/Select"));
 var MenuItem_1 = __importDefault(require("@material-ui/core/MenuItem"));
 var Button_1 = __importDefault(require("@material-ui/core/Button"));
-var axios_1 = __importDefault(require("axios"));
+var pdf_lib_1 = require("pdf-lib");
+var pubfuncs_1 = require("@tofusoup429/pubfuncs");
+var createPDFWithImages = function (imageBase64Array) { return __awaiter(void 0, void 0, void 0, function () {
+    var pdfDoc, _i, imageBase64Array_1, image, imageUint8, embedImage, imageDim, page, pdfByteUint8, b64;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!(imageBase64Array.length > 0)) return [3 /*break*/, 7];
+                return [4 /*yield*/, pdf_lib_1.PDFDocument.create()];
+            case 1:
+                pdfDoc = _a.sent();
+                _i = 0, imageBase64Array_1 = imageBase64Array;
+                _a.label = 2;
+            case 2:
+                if (!(_i < imageBase64Array_1.length)) return [3 /*break*/, 5];
+                image = imageBase64Array_1[_i];
+                imageUint8 = pubfuncs_1.removeFileHeaderFromBase64AndConvertToUint8Array(image);
+                return [4 /*yield*/, pdfDoc.embedPng(imageUint8)];
+            case 3:
+                embedImage = _a.sent();
+                imageDim = embedImage.scale(1);
+                page = pdfDoc.addPage();
+                page.drawImage(embedImage, {
+                    x: 0,
+                    y: 0,
+                    width: imageDim.width,
+                    height: imageDim.height,
+                });
+                _a.label = 4;
+            case 4:
+                _i++;
+                return [3 /*break*/, 2];
+            case 5: return [4 /*yield*/, pdfDoc.save()];
+            case 6:
+                pdfByteUint8 = _a.sent();
+                b64 = Buffer.from(pdfByteUint8).toString('base64');
+                return [2 /*return*/, "data:application/pdf;base64," + b64];
+            case 7: throw Error('error in creating pdfFile');
+        }
+    });
+}); };
 var ImagesView = function (_a) {
     var imageDatas = _a.imageDatas, width = _a.width;
     var _b = react_1.useState(2), howManyImagesOnWidth = _b[0], handleHowManyImagesOnWidth = _b[1];
     var handleHowManyImagesOnWidthWrapper = function (e) { return handleHowManyImagesOnWidth(parseInt(e.target.value)); };
     var createPDFWithImagesWrapper = function () { return __awaiter(void 0, void 0, void 0, function () {
-        var url, body, data, e_1, headers, res, e_2;
+        var data, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    url = 'https://mpi85.vercel.app/api/pi84/create-pdf-with-images';
-                    body = { imageBase64Array: imageDatas };
-                    _a.label = 1;
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, createPDFWithImages(imageDatas)];
                 case 1:
-                    _a.trys.push([1, 3, , 8]);
-                    return [4 /*yield*/, axios_1.default.post(url, body)];
+                    data = _a.sent();
+                    console.log('data', data);
+                    return [3 /*break*/, 3];
                 case 2:
-                    data = (_a.sent()).data;
-                    alert(data);
-                    return [3 /*break*/, 8];
-                case 3:
                     e_1 = _a.sent();
-                    _a.label = 4;
-                case 4:
-                    _a.trys.push([4, 6, , 7]);
-                    headers = { 'Content-Type': 'application/json' };
-                    return [4 /*yield*/, fetch(url, { method: 'post', headers: headers, body: JSON.stringify(body) })];
-                case 5:
-                    res = _a.sent();
-                    alert("fetch: " + JSON.stringify(res.json()));
-                    return [3 /*break*/, 7];
-                case 6:
-                    e_2 = _a.sent();
-                    alert("imageView Error1: " + e_2);
-                    return [3 /*break*/, 7];
-                case 7: return [3 /*break*/, 8];
-                case 8: return [2 /*return*/];
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
             }
         });
     }); };
