@@ -15,7 +15,7 @@ const ImagesView = ({imageDatas, width}:Props) =>{
     const handleHowManyImagesOnWidthWrapper = (e:any) => handleHowManyImagesOnWidth(parseInt(e.target.value))    
     const createPDFWithImagesWrapper = async () => {
         let url = 'https://mpi85.vercel.app/api/pi84/create-pdf-with-images';
-        let body = {imageBase64Array:imageDatas}
+        let body = {imageBase64Array:imageDatas};
         try{
             let {data} = await axios.post(url,body);
             alert(data)
