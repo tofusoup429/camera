@@ -10,5 +10,5 @@ interface Props {
     imagesBase64Array: string[];
     handleImagesBase64Array: (arg: string[]) => void;
 }
-declare const VideoView: ({ bucketName, objectKey, handleView, view, width, height, imagesBase64Array: imageDatas, handleImagesBase64Array }: Props) => JSX.Element;
+declare const VideoView: ({ objectKey, handleView, view, width, height, imagesBase64Array: imageDatas, handleImagesBase64Array }: Props) => JSX.Element;
 export default VideoView;

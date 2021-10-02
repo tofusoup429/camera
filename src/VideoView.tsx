@@ -16,7 +16,7 @@ interface Props{
     handleImagesBase64Array:(arg:string[])=>void
 }
 
-const VideoView = ({bucketName, objectKey, handleView, view, width, height, imagesBase64Array: imageDatas, handleImagesBase64Array}:Props) => {
+const VideoView = ({objectKey, handleView, view, width, height, imagesBase64Array: imageDatas, handleImagesBase64Array}:Props) => {
     
     const {captureImage ,imageData, switchCameraFacingMode} = useCamera(); // customHook that contains logics
     const [canvasOpacity,] = useState<number>(0);
@@ -36,7 +36,7 @@ const VideoView = ({bucketName, objectKey, handleView, view, width, height, imag
                 color="secondary" 
                 variant="caption" 
                 style={{position:"absolute", top:'15px', right:'15px'}}>
-                    <b>{bucketName}{objectKey}</b>
+                    <b>{objectKey}</b>
             </Typography>
             <LensSharpIcon 
                 id='CaptureImageButton' 

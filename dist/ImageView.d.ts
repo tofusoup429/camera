@@ -1,8 +1,11 @@
 /// <reference types="react" />
 interface Props {
+    objectKey: string;
     imagesBase64Array: string[];
     width: number;
-    uploadMergedImages?: () => void;
+    uploadMergedImages: () => void;
+    nameToMergedImages: string;
+    handleNameToMergedImages: (arg: string) => void;
 }
-declare const ImagesView: ({ imagesBase64Array, width, uploadMergedImages }: Props) => JSX.Element;
+declare const ImagesView: ({ objectKey, imagesBase64Array, width, uploadMergedImages, nameToMergedImages, handleNameToMergedImages }: Props) => JSX.Element;
 export default ImagesView;

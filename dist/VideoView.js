@@ -34,7 +34,7 @@ var LensSharp_1 = __importDefault(require("@material-ui/icons/LensSharp"));
 var Loop_1 = __importDefault(require("@material-ui/icons/Loop"));
 var Typography_1 = __importDefault(require("@material-ui/core/Typography"));
 var VideoView = function (_a) {
-    var bucketName = _a.bucketName, objectKey = _a.objectKey, handleView = _a.handleView, view = _a.view, width = _a.width, height = _a.height, imageDatas = _a.imagesBase64Array, handleImagesBase64Array = _a.handleImagesBase64Array;
+    var objectKey = _a.objectKey, handleView = _a.handleView, view = _a.view, width = _a.width, height = _a.height, imageDatas = _a.imagesBase64Array, handleImagesBase64Array = _a.handleImagesBase64Array;
     var _b = useCamera_1.useCamera(), captureImage = _b.captureImage, imageData = _b.imageData, switchCameraFacingMode = _b.switchCameraFacingMode; // customHook that contains logics
     var canvasOpacity = react_1.useState(0)[0];
     react_1.useEffect(function () {
@@ -47,9 +47,7 @@ var VideoView = function (_a) {
             react_1.default.createElement("video", { width: width, style: { objectFit: 'contain' } }),
             react_1.default.createElement("canvas", { style: { opacity: canvasOpacity } })),
         react_1.default.createElement(Typography_1.default, { color: "secondary", variant: "caption", style: { position: "absolute", top: '15px', right: '15px' } },
-            react_1.default.createElement("b", null,
-                bucketName,
-                objectKey)),
+            react_1.default.createElement("b", null, objectKey)),
         react_1.default.createElement(LensSharp_1.default, { id: 'CaptureImageButton', fontSize: 'large', color: "secondary", style: { width: '75px', height: "75px", position: 'absolute', top: height * 0.9, left: width * 0.5, transform: "translate(-50%, -50%)" }, onClick: captureImage }),
         react_1.default.createElement(Loop_1.default, { id: 'SwitchCameraButton', fontSize: 'large', color: "secondary", style: { position: 'absolute', top: '40px', left: '40px', transform: "translate(-50%, -50%)" }, onClick: switchCameraFacingMode }),
         imageDatas.length > 0 &&

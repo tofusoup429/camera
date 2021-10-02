@@ -10,7 +10,9 @@ interface Props{
     handleImagesBase64Array:(arg:string[])=>void,
     view:View,
     handleView:(arg:View)=>void,
-    uploadMergedImages?:()=>void
+    uploadMergedImages:()=>void,
+    nameToMergedImages:string,
+    handleNameToMergedImages:(arg:string)=>void
 }
 
 export const MobileCameraFullScreenView2 = ({
@@ -20,7 +22,9 @@ export const MobileCameraFullScreenView2 = ({
     handleImagesBase64Array,
     view,
     handleView,
-    uploadMergedImages
+    uploadMergedImages,
+    nameToMergedImages,
+    handleNameToMergedImages
 }:Props) => {
     let {width, height} = useWindowSize();
     return(
@@ -37,10 +41,14 @@ export const MobileCameraFullScreenView2 = ({
                 handleImagesBase64Array={handleImagesBase64Array}
             />
         :
-            <ImagesView 
+            <ImagesView
+                            objectKey={objectKey} 
                 imagesBase64Array={imagesBase64Array}
                 width={width}
                 uploadMergedImages={uploadMergedImages}
+                nameToMergedImages={nameToMergedImages}
+                handleNameToMergedImages={handleNameToMergedImages}
+                
             />
         }
         </>
