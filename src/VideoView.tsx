@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View} from './MobileCamerView';
-import {useCamera} from "./useCamera";
+import {useTakePicture} from "./useTakePicture";
 import { SmallImagesDisplayedOverlapped } from './SmallImagesDisplayedOverlapped';
 import LensSharpIcon from '@material-ui/icons/LensSharp';
 import LoopIcon from '@material-ui/icons/Loop';
@@ -18,7 +18,7 @@ interface Props{
 
 const VideoView = ({objectKey, handleView, view, width, height, imagesBase64Array: imageDatas, handleImagesBase64Array}:Props) => {
     
-    const {captureImage ,imageData, switchCameraFacingMode} = useCamera(); // customHook that contains logics
+    const {captureImage ,imageData, switchCameraFacingMode} = useTakePicture(); // customHook that contains logics
     const [canvasOpacity,] = useState<number>(0);
     
     

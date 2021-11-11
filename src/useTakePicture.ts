@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 
 type CameraFacingMode = "environment"|"user"
 
-export const useCamera = ()=> {
+export const useTakePicture = ()=> {
     const [videoDem, handleVideoDem] = useState<{w:number, h:number}>({w:0, h:0})
     const [cameraFacingMode, handleCameraFacingMode] = useState<CameraFacingMode>('environment')
     const [imageData, handleImageData] = useState('');
